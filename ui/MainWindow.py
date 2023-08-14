@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QFileDialog
+from PySide6.QtWidgets import QMainWindow, QWidget, QFileDialog, QTabWidget, QVBoxLayout
 from PySide6.QtGui import QAction
 
 class MainWindow(QMainWindow):
@@ -9,6 +9,9 @@ class MainWindow(QMainWindow):
         # criando central widget
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
+        # central layout
+        centralLayout = QVBoxLayout()
+        self.centralWidget.setLayout(centralLayout)
         # criando menu bar
         self.menuBar = self.menuBar()
         fileMenu = self.menuBar.addMenu("Arquivo")
@@ -28,6 +31,11 @@ class MainWindow(QMainWindow):
         exitAction.setShortcut("Ctrl+Q")
         exitAction.triggered.connect(self.close)
         fileMenu.addAction(exitAction)
+        # create tab widget
+        tabWidget = QTabWidget(self)
+        tabWidget.addTab(QWidget(), "Analisador léxico")
+        tabWidget.addTab(QWidget(), "...")
+        centralLayout.addWidget(tabWidget)
 
     def openFile(self):
         fileName, _ = QFileDialog.getOpenFileName(self, "Abrir arquivo", "", "Arquivo de texto (*.txt)")
