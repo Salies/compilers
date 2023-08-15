@@ -6,7 +6,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Projeto de Compiladores")
-        self.setFixedSize(800, 600)
+        self.setFixedSize(900, 600)
         # criando central widget
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
@@ -42,6 +42,11 @@ class MainWindow(QMainWindow):
     def openFile(self):
         fileName, _ = QFileDialog.getOpenFileName(self, "Abrir arquivo", "", "Arquivo de texto (*.txt)")
         print(fileName)
+        # ler o arquivo
+        f = open(fileName, "r")
+        text = f.read()
+        f.close()
+        self.lexWidget.setCode(text)
 
     def saveFile(self):
         fileName, _ = QFileDialog.getSaveFileName(self, "Salvar arquivo", "", "Arquivo de texto (*.txt)")
