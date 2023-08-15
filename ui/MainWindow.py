@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QFileDialog, QTabWidget, QVBoxLayout
 from PySide6.QtGui import QAction
+from ui.LexerWidget import LexerWidget
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -33,7 +34,8 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(exitAction)
         # create tab widget
         tabWidget = QTabWidget(self)
-        tabWidget.addTab(QWidget(), "Analisador léxico")
+        self.lexWidget = LexerWidget()
+        tabWidget.addTab(self.lexWidget, "Analisador léxico")
         tabWidget.addTab(QWidget(), "...")
         centralLayout.addWidget(tabWidget)
 
