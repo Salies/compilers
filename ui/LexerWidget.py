@@ -1,4 +1,6 @@
-from PySide6.QtWidgets import QWidget, QTextEdit, QHBoxLayout, QTableWidget, QHeaderView, QPushButton
+from PySide6.QtWidgets import QWidget, QTextEdit, QHBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
+from antlr4 import *
+from tools.LangLexer import LangLexer
 
 class LexerWidget(QWidget):
     def __init__(self):
@@ -33,3 +35,17 @@ class LexerWidget(QWidget):
         # nota: toPlainText() ainda mantém a quebra de linha, ou seja, sem problemas
         code = self.editor.toPlainText()
         print(code)
+        # create stream from code
+        stream = InputStream(code)
+        # cria lexer a partir da stream
+        lexer = LangLexer(stream)
+        # pega os tokens
+        tokens = lexer.getAllTokens()
+        # monta a listinha pra tabela
+        token_list = [[token.text, lexer.symbolicNames[token.type], token.line, token.column, token.column + len(token.text)] for token in tokens]
+        # atualiza a tabela
+        self.table.setRowCount(len(token_list))
+        for i, token in enumerate(token_list):
+            for j, value in enumerate(token):
+                self.table.setItem(i, j, QTableWidgetItem(str(value)))
+
