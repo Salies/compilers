@@ -9,6 +9,7 @@ class LexerWidget(QWidget):
         self.button = QPushButton("➜", self)
         self.button.setFixedWidth(40)
         self.button.setFixedHeight(40)
+        self.button.clicked.connect(self.lex)
         # button: font size 24
         self.button.setStyleSheet("font-size:24px")
         # criando tabela de lexemas
@@ -26,3 +27,9 @@ class LexerWidget(QWidget):
 
     def setCode(self, code):
         self.editor.setText(code)
+
+    def lex(self):
+        # pega texto do editor
+        # nota: toPlainText() ainda mantém a quebra de linha, ou seja, sem problemas
+        code = self.editor.toPlainText()
+        print(code)

@@ -1,9 +1,0 @@
-AND=1
-OR=2
-INT=3
-ID=4
-ERR_TOKEN=5
-WS=6
-'and'=1
-'or'=2
-' '=6
