@@ -41,7 +41,6 @@ class MainWindow(QMainWindow):
 
     def openFile(self):
         fileName, _ = QFileDialog.getOpenFileName(self, "Abrir arquivo", "", "Arquivo de texto (*.txt)")
-        print(fileName)
         # ler o arquivo
         f = open(fileName, "r")
         text = f.read()
@@ -50,7 +49,10 @@ class MainWindow(QMainWindow):
 
     def saveFile(self):
         fileName, _ = QFileDialog.getSaveFileName(self, "Salvar arquivo", "", "Arquivo de texto (*.txt)")
-        print(fileName)
+        # salvar o arquivo no path
+        f = open(fileName, "w")
+        f.write(self.lexWidget.getCode())
+        f.close()
 
     def close(self):
         super().close()

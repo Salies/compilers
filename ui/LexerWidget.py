@@ -30,6 +30,9 @@ class LexerWidget(QWidget):
     def setCode(self, code):
         self.editor.setText(code)
 
+    def getCode(self):
+        return self.editor.toPlainText()
+
     def lex(self):
         # pega texto do editor
         # nota: toPlainText() ainda mantém a quebra de linha, ou seja, sem problemas
