@@ -8,6 +8,10 @@ lexer grammar LangLexer;
 INT: [0-9]+;
 REAL: [0-9]+'.'[0-9]+;
 
+COMMENT: '//' ~[\r\n]*;
+MULTILINE_COMMENT: '{' .*? '}';
+//COMMENT_MULTILINE: '{'(~'}')*'}' ;
+
 SUM: '+';
 MUL: '*';
 DIV: '/';
