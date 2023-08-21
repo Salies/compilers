@@ -5,20 +5,55 @@
 // Gabriel Nozawa
 lexer grammar LangLexer;
 
-INT: [0-9]+;
-REAL: [0-9]+'.'[0-9]+;
+// Regras da LALG
 
-COMMENT: '//' ~[\r\n]*;
-MULTILINE_COMMENT: '{' .*? '}';
-//COMMENT_MULTILINE: '{'(~'}')*'}' ;
-
+// Palavras reservadas
+PROGRAM: 'program';
+PROCEDURE: 'procedure';
+SEMICOLON: ';';
+COMMA: ',';
+VAR: 'var';
+TYPE_INT: 'int';
+TYPE_BOOL: 'boolean';
+PROC_READ: 'read';
+PROC_WRITE: 'write';
+CONST_TRUE: 'true';
+CONST_FALSE: 'false';
+BEGIN: 'begin';
+END: 'end';
+IF: 'if';
+THEN: 'then';
+ELSE: 'else';
+OR: 'or';
+AND: 'and';
+NOT: 'not';
 SUM: '+';
 MUL: '*';
 DIV: '/';
 SUB: '-';
-
 LP: '(';
 RP: ')';
+WHILE: 'while';
+DO: 'do';
+// Relações
+EQUAL: '=';
+DIFF: '<>';
+LT: '<';
+GT: '>';
+LTE: '<=';
+GTE: '>=';
+
+fragment LETRA: '_'|[A-Z]|[a-z];
+fragment DIGITO: [0-9];
+IDENTIFICADOR: (LETRA)(LETRA|DIGITO)*;
+
+
+INT: [0-9]+;
+REAL: [0-9]+'.'[0-9]+;
+
+COMMENT: '//' ~[\r\n]* -> skip;
+MULTILINE_COMMENT: '{' .*? '}' -> skip;
+//COMMENT_MULTILINE: '{'(~'}')*'}' ;
 
 WS: [ \t\n\r\f]+ -> skip ;
 
