@@ -37,7 +37,6 @@ class LexerWidget(QWidget):
         # pega texto do editor
         # nota: toPlainText() ainda mantém a quebra de linha, ou seja, sem problemas
         code = self.editor.toPlainText()
-        print(code)
         # create stream from code
         stream = InputStream(code)
         # cria lexer a partir da stream
