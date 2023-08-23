@@ -164,3 +164,6 @@ antlr-4.13.0-complete.jar
 main.build/
 main.dist/
 main.onefile-build/
+.antlr
+tools/.antlr
+.vscode
