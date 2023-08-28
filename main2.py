@@ -17,6 +17,7 @@ class LineCounterWidget(QWidget):
         font = QFont("Monospace")
         font.setStyleHint(QFont.TypeWriter)
         self.line_label.setFont(font)
+        self.line_label.setContentsMargins(0, 0, 0, 0)
         self.line_label.setFixedWidth(30)
         # set background color using qpalette
         palette = QPalette()
@@ -52,6 +53,8 @@ class CustomTextEdit(QTextEdit):
         font = QFont("Monospace")
         font.setStyleHint(QFont.TypeWriter)
         self.setFont(font)
+        # remove margins
+        self.setContentsMargins(0, 0, 0, 0)
 
     def sizeHint(self):
         return QSize(super().sizeHint().width() - 30, super().sizeHint().height())
@@ -69,10 +72,10 @@ class LineCounterMainWindow(QMainWindow):
         # remove gaps
         central_layout.setContentsMargins(0, 0, 0, 0)
         # remove padding
-        central_layout.setSpacing(0)
         central_layout.addWidget(line_counter)
         central_layout.addWidget(text_edit)
         central_widget.setLayout(central_layout)
+        central_layout.setSpacing(0)
 
         self.setCentralWidget(central_widget)
         self.setGeometry(100, 100, 800, 600)
