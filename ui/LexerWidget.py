@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QWidget, QTextEdit, QHBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
+from PySide6.QtWidgets import QPlainTextEdit, QWidget, QTextEdit, QHBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
+from PySide6.QtGui import QFont
 from antlr4 import *
 from tools.LangLexer import LangLexer
 
@@ -7,6 +8,11 @@ class LexerWidget(QWidget):
         super().__init__()
         layout = QHBoxLayout()
         self.editor = QTextEdit(self)
+        # set monospace font
+        font = QFont("Monospace")
+        font.setStyleHint(QFont.TypeWriter)
+        self.editor.setFont(font)
+        self.editor.setStyleSheet("font-size:14px")
         # botão de ativação
         self.button = QPushButton("➜", self)
         self.button.setFixedWidth(40)

@@ -11,6 +11,8 @@ lexer grammar LangLexer;
 PROGRAM: 'program';
 PROCEDURE: 'procedure';
 SEMICOLON: ';';
+ATTRIB: ':=';
+COLON: ':';
 COMMA: ',';
 VAR: 'var';
 TYPE_INT: 'int';
@@ -35,6 +37,7 @@ LP: '(';
 RP: ')';
 WHILE: 'while';
 DO: 'do';
+DOT: '.';
 // Relações
 EQUAL: '=';
 DIFF: '<>';
