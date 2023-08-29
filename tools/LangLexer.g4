@@ -35,6 +35,8 @@ DIV: '/';
 SUB: '-';
 LP: '(';
 RP: ')';
+LB: '[';
+RB: ']';
 WHILE: 'while';
 DO: 'do';
 DOT: '.';
