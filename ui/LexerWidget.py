@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QPlainTextEdit, QWidget, QTextEdit, QHBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
-from PySide6.QtGui import QFont
+from PyQt6.QtWidgets import QPlainTextEdit, QWidget, QTextEdit, QHBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
+from PyQt6.QtGui import QFont
 from antlr4 import *
 from tools.LangLexer import LangLexer
 
@@ -10,7 +10,7 @@ class LexerWidget(QWidget):
         self.editor = QTextEdit(self)
         # set monospace font
         font = QFont("Monospace")
-        font.setStyleHint(QFont.TypeWriter)
+        font.setStyleHint(QFont.StyleHint.TypeWriter)
         self.editor.setFont(font)
         self.editor.setStyleSheet("font-size:14px")
         # botão de ativação
@@ -22,12 +22,12 @@ class LexerWidget(QWidget):
         self.button.setStyleSheet("font-size:24px")
         # criando tabela de lexemas
         self.table = QTableWidget(1, 5, self)
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.table.setHorizontalHeaderLabels(["Lexema", "Token", "Linha", "Col. inicial", "Col. final"])
         # desabilitando edição da tabela
-        self.table.setEditTriggers(QTableWidget.NoEditTriggers)
+        self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         # selecionando linha inteira
-        self.table.setSelectionBehavior(QTableWidget.SelectRows)
+        self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         layout.addWidget(self.editor)
         layout.addWidget(self.button)
         layout.addWidget(self.table)

@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QFileDialog, QTabWidget, QVBoxLayout
-from PySide6.QtGui import QAction
+from PyQt6.QtWidgets import QMainWindow, QWidget, QFileDialog, QTabWidget, QVBoxLayout
+from PyQt6.QtGui import QAction
 from ui.LexerWidget import LexerWidget
 
 class MainWindow(QMainWindow):
