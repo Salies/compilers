@@ -10,12 +10,13 @@ class LexerWidget(QWidget):
         layout = QHBoxLayout()
         self.editor = QsciScintilla(self)
         # set ANTLR lexer
-        #self.editor.setLexer(QsciLexerCPP())
+        # TODO: NOZAWA MUDA AQUI
         lexer = QsciLexerPascal(self.editor)
         self.editor.setLexer(lexer)
         self.editor.setMarginLineNumbers(1, True)
         font = QFont("Courier New", 12) # TODO: subsituir
         self.editor.setFont(font)
+        lexer.setFont(font)
         # padding
         self.editor.setMarginsFont(font)
         # botão de ativação
