@@ -32,6 +32,7 @@ NOT: 'not';
 SUM: '+';
 MUL: '*';
 DIV: '/';
+INT_DIV: 'div';
 SUB: '-';
 LP: '(';
 RP: ')';

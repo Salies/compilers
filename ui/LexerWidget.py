@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QPlainTextEdit, QWidget, QTextEdit, QHBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
 from PyQt6.QtGui import QFont
+from PyQt6.Qsci import *
 from antlr4 import *
 from tools.LangLexer import LangLexer
 
@@ -7,12 +8,16 @@ class LexerWidget(QWidget):
     def __init__(self):
         super().__init__()
         layout = QHBoxLayout()
-        self.editor = QTextEdit(self)
-        # set monospace font
-        font = QFont("Monospace")
-        font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.editor = QsciScintilla(self)
+        # set ANTLR lexer
+        #self.editor.setLexer(QsciLexerCPP())
+        lexer = QsciLexerPascal(self.editor)
+        self.editor.setLexer(lexer)
+        self.editor.setMarginLineNumbers(1, True)
+        font = QFont("Courier New", 12) # TODO: subsituir
         self.editor.setFont(font)
-        self.editor.setStyleSheet("font-size:14px")
+        # padding
+        self.editor.setMarginsFont(font)
         # botão de ativação
         self.button = QPushButton("➜", self)
         self.button.setFixedWidth(40)
@@ -37,12 +42,12 @@ class LexerWidget(QWidget):
         self.editor.setText(code)
 
     def getCode(self):
-        return self.editor.toPlainText()
+        return self.editor.text()
 
     def lex(self):
         # pega texto do editor
         # nota: toPlainText() ainda mantém a quebra de linha, ou seja, sem problemas
-        code = self.editor.toPlainText()
+        code = self.getCode()
         # create stream from code
         stream = InputStream(code)
         # cria lexer a partir da stream
