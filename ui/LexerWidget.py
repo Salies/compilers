@@ -3,6 +3,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.Qsci import *
 from antlr4 import *
 from tools.LangLexer import LangLexer
+from ui.CustomizedLexer import CustomizedLexer
 
 class LexerWidget(QWidget):
     def __init__(self):
@@ -11,7 +12,7 @@ class LexerWidget(QWidget):
         self.editor = QsciScintilla(self)
         # set ANTLR lexer
         # TODO: NOZAWA MUDA AQUI
-        lexer = QsciLexerPascal(self.editor)
+        lexer = CustomizedLexer(self.editor)
         self.editor.setLexer(lexer)
         self.editor.setMarginLineNumbers(1, True)
         font = QFont("Courier New", 12) # TODO: subsituir
