@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QMainWindow, QWidget, QFileDialog, QTabWidget, QVBoxLayout
 from PyQt6.QtGui import QAction
-from ui.LexerWidget import LexerWidget
+from ui.MainWidget import MainWidget
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -32,13 +32,10 @@ class MainWindow(QMainWindow):
         exitAction.setShortcut("Ctrl+Q")
         exitAction.triggered.connect(self.close)
         fileMenu.addAction(exitAction)
-        # create tab widget
-        tabWidget = QTabWidget(self)
-        self.lexWidget = LexerWidget()
-        tabWidget.addTab(self.lexWidget, "Analisador léxico")
-        tabWidget.addTab(QWidget(), "...")
-        centralLayout.addWidget(tabWidget)
-
+        # Criando abas (tab widget)
+        self.mainWidget = MainWidget()
+        centralLayout.addWidget(self.mainWidget)
+        
     def openFile(self):
         fileName, _ = QFileDialog.getOpenFileName(self, "Abrir arquivo", "", "Arquivo de texto (*.txt)")
         if fileName == "":
@@ -47,7 +44,7 @@ class MainWindow(QMainWindow):
         f = open(fileName, "r")
         text = f.read()
         f.close()
-        self.lexWidget.setCode(text)
+        self.mainWidget.setCode(text)
 
     def saveFile(self):
         fileName, _ = QFileDialog.getSaveFileName(self, "Salvar arquivo", "", "Arquivo de texto (*.txt)")
@@ -55,7 +52,7 @@ class MainWindow(QMainWindow):
             return
         # salvar o arquivo no path
         f = open(fileName, "w")
-        f.write(self.lexWidget.getCode())
+        f.write(self.mainWidget.getCode())
         f.close()
 
     def close(self):

@@ -1,14 +1,19 @@
-from PyQt6.QtWidgets import QPlainTextEdit, QWidget, QTextEdit, QHBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
+from PyQt6.QtWidgets import QTextEdit, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
 from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt
 from PyQt6.Qsci import *
 from antlr4 import *
 from tools.LangLexer import LangLexer
 from ui.CustomizedLexer import CustomizedLexer
 
-class LexerWidget(QWidget):
+class MainWidget(QWidget):
     def __init__(self):
         super().__init__()
-        layout = QHBoxLayout()
+        centralLayout = QVBoxLayout()
+        edAndTableLay = QHBoxLayout()
+        bottomLayout = QHBoxLayout()
+        lexLayout = QVBoxLayout()
+        sinLayout = QVBoxLayout()
         self.editor = QsciScintilla(self)
         # set ANTLR lexer
         # TODO: NOZAWA MUDA AQUI
@@ -21,12 +26,8 @@ class LexerWidget(QWidget):
         # padding
         self.editor.setMarginsFont(font)
         # botão de ativação
-        self.button = QPushButton("➜", self)
-        self.button.setFixedWidth(40)
-        self.button.setFixedHeight(40)
+        self.button = QPushButton("Analisar", self)
         self.button.clicked.connect(self.lex)
-        # button: font size 24
-        self.button.setStyleSheet("font-size:24px")
         # criando tabela de lexemas
         self.table = QTableWidget(1, 5, self)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -35,10 +36,36 @@ class LexerWidget(QWidget):
         self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         # selecionando linha inteira
         self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
-        layout.addWidget(self.editor)
-        layout.addWidget(self.button)
-        layout.addWidget(self.table)
-        self.setLayout(layout)
+        # Criando outputs léxico e sintático
+        lexTitle = QLabel("<b>Erros Léxicos</b>")
+        lexOutput = QTextEdit()
+        lexOutput.setReadOnly(True)
+        lexLayout.addStretch()
+        lexLayout.addWidget(lexTitle)
+        lexLayout.addWidget(lexOutput)
+        sinTitle = QLabel("<b>Erros Sintáticos</b>")
+        sinOutput = QTextEdit()
+        sinOutput.setReadOnly(True)
+        sinLayout.addStretch()
+        sinLayout.addWidget(sinTitle)
+        sinLayout.addWidget(sinOutput)
+        # smaller textedit height
+        lexOutput.setFixedHeight(100)
+        sinOutput.setFixedHeight(100)
+        bottomLayout.addLayout(lexLayout)
+        bottomLayout.addLayout(sinLayout)
+        edAndTableLay.addWidget(self.editor)
+        edAndTableLay.addWidget(self.table)
+        # buttons layout
+        btnsLayout = QVBoxLayout()
+        btnsLayout.addStretch()
+        btnsLayout.addWidget(self.button)
+        bottomLayout.addLayout(btnsLayout)
+        centralLayout.addLayout(edAndTableLay)
+        centralLayout.addLayout(bottomLayout)
+        # remove stretch
+        centralLayout.setStretch(0, 1)
+        self.setLayout(centralLayout)
 
     def setCode(self, code):
         self.editor.setText(code)
