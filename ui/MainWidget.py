@@ -4,6 +4,8 @@ from PyQt6.QtCore import Qt
 from PyQt6.Qsci import *
 from antlr4 import *
 from tools.LangLexer import LangLexer
+from tools.LangParser import LangParser
+from tools.ErrorListener import ErrorListener
 from ui.CustomizedLexer import CustomizedLexer
 
 class MainWidget(QWidget):
@@ -27,7 +29,7 @@ class MainWidget(QWidget):
         self.editor.setMarginsFont(font)
         # botão de ativação
         self.button = QPushButton("Analisar", self)
-        self.button.clicked.connect(self.lex)
+        self.button.clicked.connect(self.analyze)
         # criando tabela de lexemas
         self.table = QTableWidget(1, 5, self)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -38,20 +40,20 @@ class MainWidget(QWidget):
         self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         # Criando outputs léxico e sintático
         lexTitle = QLabel("<b>Erros Léxicos</b>")
-        lexOutput = QTextEdit()
-        lexOutput.setReadOnly(True)
+        self.lexOutput = QTextEdit()
+        self.lexOutput.setReadOnly(True)
         lexLayout.addStretch()
         lexLayout.addWidget(lexTitle)
-        lexLayout.addWidget(lexOutput)
+        lexLayout.addWidget(self.lexOutput)
         sinTitle = QLabel("<b>Erros Sintáticos</b>")
-        sinOutput = QTextEdit()
-        sinOutput.setReadOnly(True)
+        self.sinOutput = QTextEdit()
+        self.sinOutput.setReadOnly(True)
         sinLayout.addStretch()
         sinLayout.addWidget(sinTitle)
-        sinLayout.addWidget(sinOutput)
+        sinLayout.addWidget(self.sinOutput)
         # smaller textedit height
-        lexOutput.setFixedHeight(100)
-        sinOutput.setFixedHeight(100)
+        self.lexOutput.setFixedHeight(100)
+        self.sinOutput.setFixedHeight(100)
         bottomLayout.addLayout(lexLayout)
         bottomLayout.addLayout(sinLayout)
         edAndTableLay.addWidget(self.editor)
@@ -72,6 +74,10 @@ class MainWidget(QWidget):
 
     def getCode(self):
         return self.editor.text()
+    
+    def analyze(self):
+        self.lex()
+        self.sintaxAnalysis()
 
     def lex(self):
         # pega texto do editor
@@ -90,4 +96,23 @@ class MainWidget(QWidget):
         for i, token in enumerate(token_list):
             for j, value in enumerate(token):
                 self.table.setItem(i, j, QTableWidgetItem(str(value)))
+
+    def sintaxAnalysis(self):
+        input_stream = InputStream(self.getCode())
+        lexer = LangLexer(input_stream)
+        token_stream = CommonTokenStream(lexer)
+        parser = LangParser(token_stream)
+        # catch errors
+        parser.removeErrorListeners()
+        parser.addErrorListener(ErrorListener())
+        # parse
+        parser.programa()
+        # get errors
+        errors = parser.getErrors()
+        # print errors
+        self.sinOutput.clear()
+        for error in errors:
+            self.sinOutput.append(error)
+
+        
 
