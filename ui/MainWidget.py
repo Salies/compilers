@@ -23,7 +23,6 @@ class MainWidget(QWidget):
         sinLayout = QVBoxLayout()
         self.editor = QsciScintilla(self)
         # set ANTLR lexer
-        # TODO: NOZAWA MUDA AQUI
         lexer = CustomizedLexer(self.editor)
         self.editor.setLexer(lexer)
         self.editor.setMarginLineNumbers(1, True)
@@ -117,7 +116,7 @@ class MainWidget(QWidget):
         lexer.addErrorListener(errListener)
 
         # parse rule 'variavel'
-        parser.variavel()
+        parser.parteDeclaracaoVariavel()
         # get errors
         errors = errListener.getErrors()
         # print errors

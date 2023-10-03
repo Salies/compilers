@@ -1,6 +1,6 @@
 parser grammar LangParser;
 options { tokenVocab=LangLexer; }
-
+    
 numero: (INT | REAL);
 
 relacao:
@@ -19,4 +19,16 @@ fator:
     ( variavel | numero | ( LP expressao RP ) | ( NOT fator ) ) ;
 
 variavel:
-    ( IDENTIFICADOR | ( IDENTIFICADOR expressao ) );
+    IDENTIFICADOR expressao? ;
+
+declaracaoVariavel: 
+    tipo listaIdentificadores ;
+
+listaIdentificadores: 
+    IDENTIFICADOR ( COMMA IDENTIFICADOR )* ;
+
+parteDeclaracaoVariavel: 
+    declaracaoVariavel ( SEMICOLON declaracaoVariavel )* SEMICOLON EOF ;
+
+tipo:
+    ( TYPE_BOOL | TYPE_INT ) ;
