@@ -1,3 +1,8 @@
+# Projeto de Compiladores
+# FCT-UNESP, 2023
+# Daniel Serezane e Gabriel Nozawa
+# Widget principal da UI
+
 from PyQt6.QtWidgets import QTextEdit, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
 from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
@@ -5,7 +10,7 @@ from PyQt6.Qsci import *
 from antlr4 import *
 from tools.LangLexer import LangLexer
 from tools.LangParser import LangParser
-from tools.ErrorListener import ErrorListener
+from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from ui.CustomizedLexer import CustomizedLexer
 
 class MainWidget(QWidget):
@@ -98,21 +103,24 @@ class MainWidget(QWidget):
                 self.table.setItem(i, j, QTableWidgetItem(str(value)))
 
     def sintaxAnalysis(self):
-        input_stream = InputStream(self.getCode())
-        lexer = LangLexer(input_stream)
-        token_stream = CommonTokenStream(lexer)
-        parser = LangParser(token_stream)
-        # catch errors
-        parser.removeErrorListeners()
-        parser.addErrorListener(ErrorListener())
-        # parse
-        parser.programa()
-        # get errors
-        errors = parser.getErrors()
-        # print errors
-        self.sinOutput.clear()
-        for error in errors:
-            self.sinOutput.append(error)
+        errListener = ErrorListener()
 
+        lexer = LangLexer(InputStream(self.getCode()))
+        tokens = CommonTokenStream(lexer)
+        parser = LangParser(tokens)
+        
+        parser._errHandler = CustomErrorStrategy()
+
+        parser.removeErrorListeners()
+        parser.addErrorListener(errListener)
+        lexer.removeErrorListeners()
+        lexer.addErrorListener(errListener)
+
+        # parse rule 'variavel'
+        parser.variavel()
+        # get errors
+        errors = errListener.getErrors()
+        # print errors
+        self.sinOutput.setText(errors)
         
 

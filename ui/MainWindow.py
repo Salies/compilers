@@ -1,3 +1,8 @@
+# Projeto de Compiladores
+# FCT-UNESP, 2023
+# Daniel Serezane e Gabriel Nozawa
+# Janela principal da UI
+
 from PyQt6.QtWidgets import QMainWindow, QWidget, QFileDialog, QTabWidget, QVBoxLayout
 from PyQt6.QtGui import QAction
 from ui.MainWidget import MainWidget

@@ -1,3 +1,8 @@
+# Projeto de Compiladores
+# FCT-UNESP, 2023
+# Daniel Serezane e Gabriel Nozawa
+# Syntax highlighter para o editor de texto
+
 import re
 from PyQt6.Qsci import QsciLexerCustom
 from PyQt6.QtGui import QFont, QColor
