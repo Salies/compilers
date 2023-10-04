@@ -5,16 +5,10 @@
 
 from PyQt6.QtWidgets import QTextEdit, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
 from PyQt6.QtGui import QFont
-from PyQt6.QtCore import Qt
 from PyQt6.Qsci import *
 from antlr4 import *
-# default error strategy
-from antlr4.error.ErrorStrategy import DefaultErrorStrategy
-# default error listener
-from antlr4.error.ErrorListener import ErrorListener as ANTLRErrorListener
 from tools.LangLexer import LangLexer
 from tools.LangGrammarParser import LangGrammarParser
-from tools.LangGrammarListener import LangGrammarListener
 from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from ui.CustomizedLexer import CustomizedLexer
 

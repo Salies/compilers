@@ -7,9 +7,10 @@
 # para tratamento de erros sintáticos.
 # https://www.antlr.org/api/Java/org/antlr/v4/runtime/ANTLRErrorListener.html
 
-from antlr4.error.ErrorListener import ErrorListener as ANTLRErrorListener
-# import error strategy
+# Se houver trechos em Inglês, é porque foram extraídos de clases do próprio ANTLR
+
 from antlr4 import *
+from antlr4.error.ErrorListener import ErrorListener as ANTLRErrorListener
 from antlr4.error.ErrorStrategy import DefaultErrorStrategy
 from antlr4.error.Errors import RecognitionException, NoViableAltException, InputMismatchException, FailedPredicateException
 
