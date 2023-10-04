@@ -33,6 +33,9 @@ class MainWidget(QWidget):
         # botão de ativação
         self.button = QPushButton("Analisar", self)
         self.button.clicked.connect(self.analyze)
+        # botão de limpar
+        clearButton = QPushButton("Limpar", self)
+        clearButton.clicked.connect(self.clear)
         # criando tabela de lexemas
         self.table = QTableWidget(1, 5, self)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -41,6 +44,7 @@ class MainWidget(QWidget):
         self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         # selecionando linha inteira
         self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.table.setRowCount(0)
         # Criando outputs léxico e sintático
         lexTitle = QLabel("<b>Erros Léxicos</b>")
         self.lexOutput = QTextEdit()
@@ -65,6 +69,7 @@ class MainWidget(QWidget):
         btnsLayout = QVBoxLayout()
         btnsLayout.addStretch()
         btnsLayout.addWidget(self.button)
+        btnsLayout.addWidget(clearButton)
         bottomLayout.addLayout(btnsLayout)
         centralLayout.addLayout(edAndTableLay)
         centralLayout.addLayout(bottomLayout)
@@ -77,6 +82,13 @@ class MainWidget(QWidget):
 
     def getCode(self):
         return self.editor.text()
+    
+    def clear(self):
+        self.editor.clear()
+        self.table.clearContents()
+        self.table.setRowCount(0)
+        self.lexOutput.clear()
+        self.sinOutput.clear()
     
     def analyze(self):
         self.lex()
