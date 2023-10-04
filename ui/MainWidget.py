@@ -100,11 +100,19 @@ class MainWidget(QWidget):
         tokens = lexer.getAllTokens()
         # monta a listinha pra tabela
         token_list = [[token.text, lexer.symbolicNames[token.type], token.line, token.column, token.column + len(token.text)] for token in tokens]
+        # lista para pegar os erros e exibir no output
+        lex_errors = []
         # atualiza a tabela
         self.table.setRowCount(len(token_list))
         for i, token in enumerate(token_list):
+            # se o token for um erro, adiciona na lista de erros
+            if token[1] == "INVALID_TOKEN":
+                lex_errors.append(token)
             for j, value in enumerate(token):
                 self.table.setItem(i, j, QTableWidgetItem(str(value)))
+        # output errors
+        error_template = "Lexema inválido: '{lexema}', na linha {linha}, coluna {coluna}."
+        self.lexOutput.setText("\n".join([error_template.format(lexema=token[0], linha=token[2], coluna=token[3]) for token in lex_errors]))
 
     def sintaxAnalysis(self):
         lexer = LangLexer(InputStream(self.getCode()))
