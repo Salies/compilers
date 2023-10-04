@@ -1,4 +1,4 @@
-parser grammar LangParser;
+grammar LangGrammar;
 options { tokenVocab=LangLexer; }
     
 numero: (INT | REAL);
@@ -28,7 +28,7 @@ listaIdentificadores:
     IDENTIFICADOR ( COMMA IDENTIFICADOR )* ;
 
 parteDeclaracaoVariavel: 
-    declaracaoVariavel ( SEMICOLON declaracaoVariavel )* SEMICOLON EOF ;
+    declaracaoVariavel ( SEMICOLON declaracaoVariavel )* SEMICOLON EOF;
 
 tipo:
     ( TYPE_BOOL | TYPE_INT ) ;

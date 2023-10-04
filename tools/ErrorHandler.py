@@ -20,7 +20,6 @@ class CustomErrorStrategy(DefaultErrorStrategy):
         errDisplay = self.getTokenErrorDisplay(e.offendingToken)
         errDisplay = errDisplay[1:-1]
         expected = e.getExpectedTokens().toString(recognizer.literalNames, recognizer.symbolicNames)
-        expected = '<' + expected + '>'
         msg = "entrada não reconhecida " +  errDisplay + ", esperava-se " + expected + "."
         recognizer.notifyErrorListeners(msg, e.offendingToken, e)
 
@@ -41,6 +40,18 @@ class CustomErrorStrategy(DefaultErrorStrategy):
         msg = "regra " + ruleName + " " + e.message
         recognizer.notifyErrorListeners(msg, e.offendingToken, e)
 
+    def reportUnwantedToken(self, recognizer:Parser):
+        if self.inErrorRecoveryMode(recognizer):
+            return
+
+        self.beginErrorCondition(recognizer)
+        t = recognizer.getCurrentToken()
+        tokenName = self.getTokenErrorDisplay(t)
+        expecting = self.getExpectedTokens(recognizer)
+        msg = "entrada estranha " + tokenName + " esperava-se " \
+            + expecting.toString(recognizer.literalNames, recognizer.symbolicNames)
+        recognizer.notifyErrorListeners(msg, t, None)
+
     def reportError(self, recognizer:Parser, e:RecognitionException):
        # if we've already reported an error and have not matched a token
        # yet successfully, don't report any errors.
@@ -56,6 +67,12 @@ class CustomErrorStrategy(DefaultErrorStrategy):
         else:
             print("erro sintático desconhecido: " + type(e).__name__)
             recognizer.notifyErrorListeners(e.message, e.offendingToken, e)
+
+    def recover(self, recognizer: Parser, e: RecognitionException):
+        super().recover(recognizer, e)
+        # if not EOF
+        if e.offendingToken.type != Token.EOF:
+            recognizer.consume()
 
 class ErrorListener(ANTLRErrorListener):
     def __init__(self):
