@@ -110,10 +110,13 @@ class MainWidget(QWidget):
         lex_errors = []
         # atualiza a tabela
         self.table.setRowCount(len(token_list))
+        self.filtered_code = code
         for i, token in enumerate(token_list):
             # se o token for um erro, adiciona na lista de erros
             if token[1] == "INVALID_TOKEN":
                 lex_errors.append(token)
+                # remove do código
+                self.filtered_code = self.filtered_code.replace(token[0], "")
             for j, value in enumerate(token):
                 self.table.setItem(i, j, QTableWidgetItem(str(value)))
         # output errors
@@ -121,7 +124,7 @@ class MainWidget(QWidget):
         self.lexOutput.setText("\n".join([error_template.format(lexema=token[0], linha=token[2], coluna=token[3]) for token in lex_errors]))
 
     def sintaxAnalysis(self):
-        lexer = LangLexer(InputStream(self.getCode()))
+        lexer = LangLexer(InputStream(self.filtered_code))
         tokens = CommonTokenStream(lexer)
         parser = LangGrammarParser(tokens)
         # custom error strategy

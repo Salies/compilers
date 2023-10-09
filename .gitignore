@@ -166,4 +166,5 @@ main.dist/
 main.onefile-build/
 .antlr
 tools/.antlr
+tools/antlr-*
 .vscode
