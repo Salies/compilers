@@ -8,7 +8,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.Qsci import *
 from antlr4 import *
 from tools.LangLexer import LangLexer
-from tools.LangGrammarParser import LangGrammarParser
+from tools.LangGrammar import LangGrammar
 from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from ui.CustomizedLexer import CustomizedLexer
 
@@ -126,7 +126,7 @@ class MainWidget(QWidget):
     def sintaxAnalysis(self):
         lexer = LangLexer(InputStream(self.filtered_code))
         tokens = CommonTokenStream(lexer)
-        parser = LangGrammarParser(tokens)
+        parser = LangGrammar(tokens)
         # custom error strategy
         parser._errHandler = CustomErrorStrategy()
         # custom error listener

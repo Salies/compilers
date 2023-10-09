@@ -1,4 +1,4 @@
-grammar LangGrammar;
+parser grammar LangGrammar;
 options { tokenVocab=LangLexer; }
     
 numero: (INT | REAL);
@@ -10,25 +10,40 @@ termo:
     fator ( ( MUL | INT_DIV | AND ) fator )* ;
 
 expressaoSimples:
-    ( SUM | SUB )? termo ( ( SUM | SUB | OR ) termo )* ;
+    ( SUM | SUB )? termo expressaoSimples1 ;
+
+expressaoSimples1:
+    ( ( SUM | SUB | OR ) termo expressaoSimples1 )? ;
 
 expressao:
-    expressaoSimples (relacao expressaoSimples)? ;
+    expressaoSimples expressao1;
+
+expressao1:
+    (relacao expressaoSimples)? ;
 
 fator:
     ( variavel | numero | ( LP expressao RP ) | ( NOT fator ) ) ;
 
 variavel:
-    IDENTIFICADOR expressao? ;
+    IDENTIFICADOR variavel1 ;
+
+variavel1:
+    expressao? ;
 
 declaracaoVariavel: 
     tipo listaIdentificadores ;
 
 listaIdentificadores: 
-    IDENTIFICADOR ( COMMA IDENTIFICADOR )* ;
+    IDENTIFICADOR listaIdentificadores1;
+
+listaIdentificadores1:
+    ( COMMA IDENTIFICADOR listaIdentificadores1 )?  ;
 
 parteDeclaracaoVariavel: 
-    declaracaoVariavel ( SEMICOLON declaracaoVariavel )* SEMICOLON EOF;
+    declaracaoVariavel parteDeclaracaoVariavel1 SEMICOLON + EOF ;
+
+parteDeclaracaoVariavel1:
+    ( SEMICOLON declaracaoVariavel parteDeclaracaoVariavel1 )? ;
 
 tipo:
     ( TYPE_BOOL | TYPE_INT ) ;
