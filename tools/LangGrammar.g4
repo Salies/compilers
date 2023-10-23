@@ -7,7 +7,10 @@ relacao:
     ( EQUAL | DIFF | LT | LTE | GT | GTE ) ;
 
 termo:
-    fator ( ( MUL | INT_DIV | AND ) fator )* ;
+    fator termo1 ;
+
+termo1:
+    ( ( MUL | INT_DIV | AND ) fator termo1 )? ;
 
 expressaoSimples:
     ( SUM | SUB )? termo expressaoSimples1 ;
@@ -58,10 +61,10 @@ bloco:
     comandoComposto ;
 
 parteDeclaracaoSubRotina: 
-    declaracaoProcedimento parteDeclaracaoSubRotina1 SEMICOLON ;
+    declaracaoProcedimento SEMICOLON parteDeclaracaoSubRotina1  ;
 
 parteDeclaracaoSubRotina1:
-    ( SEMICOLON declaracaoProcedimento parteDeclaracaoSubRotina1 ) ? ; 
+    ( declaracaoProcedimento parteDeclaracaoSubRotina1 SEMICOLON ) ? ; 
 
 declaracaoProcedimento: 
     PROCEDURE IDENTIFICADOR declaracaoProcedimento1 SEMICOLON bloco ;
@@ -78,10 +81,10 @@ parametrosFormais1:
 //ADICIONADO tipo E FATORADO A REGRA secaoParametrosFormais
 secaoParametrosFormais:
     ( VAR )? listaIdentificadores COLON secaoParametrosFormais1 ;
-
+// todo verificar identificador
 secaoParametrosFormais1:
     IDENTIFICADOR | tipo ;
-//
+// todo
 
 comandoComposto:
     BEGIN comando comandoComposto1 END ;

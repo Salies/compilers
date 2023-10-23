@@ -35,6 +35,15 @@ class LangGrammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LangGrammar#termo1.
+    def enterTermo1(self, ctx:LangGrammar.Termo1Context):
+        pass
+
+    # Exit a parse tree produced by LangGrammar#termo1.
+    def exitTermo1(self, ctx:LangGrammar.Termo1Context):
+        pass
+
+
     # Enter a parse tree produced by LangGrammar#expressaoSimples.
     def enterExpressaoSimples(self, ctx:LangGrammar.ExpressaoSimplesContext):
         pass

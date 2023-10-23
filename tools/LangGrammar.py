@@ -10,94 +10,95 @@ else:
 
 def serializedATN():
     return [
-        4,1,47,263,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,47,266,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
         2,27,7,27,2,28,7,28,2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,2,33,
-        7,33,2,34,7,34,2,35,7,35,2,36,7,36,1,0,1,0,1,1,1,1,1,2,1,2,1,2,5,
-        2,82,8,2,10,2,12,2,85,9,2,1,3,3,3,88,8,3,1,3,1,3,1,3,1,4,1,4,1,4,
-        1,4,3,4,97,8,4,1,5,1,5,1,5,1,6,1,6,1,6,3,6,105,8,6,1,7,1,7,1,7,1,
-        7,1,7,1,7,1,7,1,7,1,7,1,7,3,7,117,8,7,1,8,1,8,1,8,1,9,3,9,123,8,
-        9,1,10,1,10,1,10,1,11,1,11,1,11,1,12,1,12,1,12,3,12,134,8,12,1,13,
-        1,13,1,13,1,13,1,14,1,14,1,14,1,14,3,14,144,8,14,1,15,1,15,1,16,
-        1,16,1,16,1,16,1,16,4,16,153,8,16,11,16,12,16,154,1,16,1,16,1,17,
-        3,17,160,8,17,1,17,3,17,163,8,17,1,17,1,17,1,18,1,18,1,18,1,18,1,
-        19,1,19,1,19,1,19,3,19,175,8,19,1,20,1,20,1,20,1,20,1,20,1,20,1,
-        21,3,21,184,8,21,1,22,1,22,1,22,1,22,1,22,1,23,1,23,1,23,1,23,3,
-        23,195,8,23,1,24,3,24,198,8,24,1,24,1,24,1,24,1,24,1,25,1,25,3,25,
-        206,8,25,1,26,1,26,1,26,1,26,1,26,1,27,1,27,1,27,1,27,3,27,217,8,
-        27,1,28,1,28,1,28,1,28,1,28,3,28,224,8,28,1,29,1,29,1,29,1,29,1,
-        30,1,30,1,30,1,31,1,31,1,31,1,31,3,31,237,8,31,1,32,1,32,1,32,1,
-        32,1,32,1,32,1,33,1,33,3,33,247,8,33,1,34,1,34,1,34,1,34,1,34,1,
-        35,1,35,1,35,1,36,1,36,1,36,1,36,3,36,261,8,36,1,36,0,0,37,0,2,4,
-        6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,
-        50,52,54,56,58,60,62,64,66,68,70,72,0,7,1,0,41,42,1,0,34,39,3,0,
-        20,20,23,23,25,25,2,0,22,22,26,26,3,0,19,19,22,22,26,26,1,0,8,9,
-        2,0,10,11,40,40,253,0,74,1,0,0,0,2,76,1,0,0,0,4,78,1,0,0,0,6,87,
-        1,0,0,0,8,96,1,0,0,0,10,98,1,0,0,0,12,104,1,0,0,0,14,116,1,0,0,0,
-        16,118,1,0,0,0,18,122,1,0,0,0,20,124,1,0,0,0,22,127,1,0,0,0,24,133,
-        1,0,0,0,26,135,1,0,0,0,28,143,1,0,0,0,30,145,1,0,0,0,32,147,1,0,
-        0,0,34,159,1,0,0,0,36,166,1,0,0,0,38,174,1,0,0,0,40,176,1,0,0,0,
-        42,183,1,0,0,0,44,185,1,0,0,0,46,194,1,0,0,0,48,197,1,0,0,0,50,205,
-        1,0,0,0,52,207,1,0,0,0,54,216,1,0,0,0,56,223,1,0,0,0,58,225,1,0,
-        0,0,60,229,1,0,0,0,62,236,1,0,0,0,64,238,1,0,0,0,66,246,1,0,0,0,
-        68,248,1,0,0,0,70,253,1,0,0,0,72,260,1,0,0,0,74,75,7,0,0,0,75,1,
-        1,0,0,0,76,77,7,1,0,0,77,3,1,0,0,0,78,83,3,14,7,0,79,80,7,2,0,0,
-        80,82,3,14,7,0,81,79,1,0,0,0,82,85,1,0,0,0,83,81,1,0,0,0,83,84,1,
-        0,0,0,84,5,1,0,0,0,85,83,1,0,0,0,86,88,7,3,0,0,87,86,1,0,0,0,87,
-        88,1,0,0,0,88,89,1,0,0,0,89,90,3,4,2,0,90,91,3,8,4,0,91,7,1,0,0,
-        0,92,93,7,4,0,0,93,94,3,4,2,0,94,95,3,8,4,0,95,97,1,0,0,0,96,92,
-        1,0,0,0,96,97,1,0,0,0,97,9,1,0,0,0,98,99,3,6,3,0,99,100,3,12,6,0,
-        100,11,1,0,0,0,101,102,3,2,1,0,102,103,3,6,3,0,103,105,1,0,0,0,104,
-        101,1,0,0,0,104,105,1,0,0,0,105,13,1,0,0,0,106,117,3,16,8,0,107,
-        117,3,0,0,0,108,109,5,27,0,0,109,110,3,10,5,0,110,111,5,28,0,0,111,
-        117,1,0,0,0,112,113,5,21,0,0,113,117,3,14,7,0,114,117,5,12,0,0,115,
-        117,5,13,0,0,116,106,1,0,0,0,116,107,1,0,0,0,116,108,1,0,0,0,116,
-        112,1,0,0,0,116,114,1,0,0,0,116,115,1,0,0,0,117,15,1,0,0,0,118,119,
-        5,40,0,0,119,120,3,18,9,0,120,17,1,0,0,0,121,123,3,10,5,0,122,121,
-        1,0,0,0,122,123,1,0,0,0,123,19,1,0,0,0,124,125,3,30,15,0,125,126,
-        3,22,11,0,126,21,1,0,0,0,127,128,5,40,0,0,128,129,3,24,12,0,129,
-        23,1,0,0,0,130,131,5,6,0,0,131,132,5,40,0,0,132,134,3,24,12,0,133,
-        130,1,0,0,0,133,134,1,0,0,0,134,25,1,0,0,0,135,136,3,20,10,0,136,
-        137,3,28,14,0,137,138,5,3,0,0,138,27,1,0,0,0,139,140,5,3,0,0,140,
-        141,3,20,10,0,141,142,3,28,14,0,142,144,1,0,0,0,143,139,1,0,0,0,
-        143,144,1,0,0,0,144,29,1,0,0,0,145,146,7,5,0,0,146,31,1,0,0,0,147,
-        148,5,1,0,0,148,149,5,40,0,0,149,150,5,3,0,0,150,152,3,34,17,0,151,
-        153,5,33,0,0,152,151,1,0,0,0,153,154,1,0,0,0,154,152,1,0,0,0,154,
-        155,1,0,0,0,155,156,1,0,0,0,156,157,5,0,0,1,157,33,1,0,0,0,158,160,
-        3,26,13,0,159,158,1,0,0,0,159,160,1,0,0,0,160,162,1,0,0,0,161,163,
-        3,36,18,0,162,161,1,0,0,0,162,163,1,0,0,0,163,164,1,0,0,0,164,165,
-        3,52,26,0,165,35,1,0,0,0,166,167,3,40,20,0,167,168,3,38,19,0,168,
-        169,5,3,0,0,169,37,1,0,0,0,170,171,5,3,0,0,171,172,3,40,20,0,172,
-        173,3,38,19,0,173,175,1,0,0,0,174,170,1,0,0,0,174,175,1,0,0,0,175,
-        39,1,0,0,0,176,177,5,2,0,0,177,178,5,40,0,0,178,179,3,42,21,0,179,
-        180,5,3,0,0,180,181,3,34,17,0,181,41,1,0,0,0,182,184,3,44,22,0,183,
-        182,1,0,0,0,183,184,1,0,0,0,184,43,1,0,0,0,185,186,5,27,0,0,186,
-        187,3,48,24,0,187,188,3,46,23,0,188,189,5,28,0,0,189,45,1,0,0,0,
-        190,191,5,3,0,0,191,192,3,48,24,0,192,193,3,46,23,0,193,195,1,0,
-        0,0,194,190,1,0,0,0,194,195,1,0,0,0,195,47,1,0,0,0,196,198,5,7,0,
-        0,197,196,1,0,0,0,197,198,1,0,0,0,198,199,1,0,0,0,199,200,3,22,11,
-        0,200,201,5,5,0,0,201,202,3,50,25,0,202,49,1,0,0,0,203,206,5,40,
-        0,0,204,206,3,30,15,0,205,203,1,0,0,0,205,204,1,0,0,0,206,51,1,0,
-        0,0,207,208,5,14,0,0,208,209,3,56,28,0,209,210,3,54,27,0,210,211,
-        5,15,0,0,211,53,1,0,0,0,212,213,5,3,0,0,213,214,3,56,28,0,214,215,
-        3,54,27,0,215,217,1,0,0,0,216,212,1,0,0,0,216,217,1,0,0,0,217,55,
-        1,0,0,0,218,224,3,58,29,0,219,224,3,60,30,0,220,224,3,52,26,0,221,
-        224,3,64,32,0,222,224,3,68,34,0,223,218,1,0,0,0,223,219,1,0,0,0,
-        223,220,1,0,0,0,223,221,1,0,0,0,223,222,1,0,0,0,224,57,1,0,0,0,225,
-        226,3,16,8,0,226,227,5,4,0,0,227,228,3,10,5,0,228,59,1,0,0,0,229,
-        230,7,6,0,0,230,231,3,62,31,0,231,61,1,0,0,0,232,233,5,27,0,0,233,
-        234,3,70,35,0,234,235,5,28,0,0,235,237,1,0,0,0,236,232,1,0,0,0,236,
-        237,1,0,0,0,237,63,1,0,0,0,238,239,5,16,0,0,239,240,3,10,5,0,240,
-        241,5,17,0,0,241,242,3,56,28,0,242,243,3,66,33,0,243,65,1,0,0,0,
-        244,245,5,18,0,0,245,247,3,56,28,0,246,244,1,0,0,0,246,247,1,0,0,
-        0,247,67,1,0,0,0,248,249,5,31,0,0,249,250,3,10,5,0,250,251,5,32,
-        0,0,251,252,3,56,28,0,252,69,1,0,0,0,253,254,3,10,5,0,254,255,3,
-        72,36,0,255,71,1,0,0,0,256,257,5,6,0,0,257,258,3,10,5,0,258,259,
-        3,72,36,0,259,261,1,0,0,0,260,256,1,0,0,0,260,261,1,0,0,0,261,73,
-        1,0,0,0,21,83,87,96,104,116,122,133,143,154,159,162,174,183,194,
-        197,205,216,223,236,246,260
+        7,33,2,34,7,34,2,35,7,35,2,36,7,36,2,37,7,37,1,0,1,0,1,1,1,1,1,2,
+        1,2,1,2,1,3,1,3,1,3,1,3,3,3,88,8,3,1,4,3,4,91,8,4,1,4,1,4,1,4,1,
+        5,1,5,1,5,1,5,3,5,100,8,5,1,6,1,6,1,6,1,7,1,7,1,7,3,7,108,8,7,1,
+        8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,3,8,120,8,8,1,9,1,9,1,9,1,
+        10,3,10,126,8,10,1,11,1,11,1,11,1,12,1,12,1,12,1,13,1,13,1,13,3,
+        13,137,8,13,1,14,1,14,1,14,1,14,1,15,1,15,1,15,1,15,3,15,147,8,15,
+        1,16,1,16,1,17,1,17,1,17,1,17,1,17,4,17,156,8,17,11,17,12,17,157,
+        1,17,1,17,1,18,3,18,163,8,18,1,18,3,18,166,8,18,1,18,1,18,1,19,1,
+        19,1,19,1,19,1,20,1,20,1,20,1,20,3,20,178,8,20,1,21,1,21,1,21,1,
+        21,1,21,1,21,1,22,3,22,187,8,22,1,23,1,23,1,23,1,23,1,23,1,24,1,
+        24,1,24,1,24,3,24,198,8,24,1,25,3,25,201,8,25,1,25,1,25,1,25,1,25,
+        1,26,1,26,3,26,209,8,26,1,27,1,27,1,27,1,27,1,27,1,28,1,28,1,28,
+        1,28,3,28,220,8,28,1,29,1,29,1,29,1,29,1,29,3,29,227,8,29,1,30,1,
+        30,1,30,1,30,1,31,1,31,1,31,1,32,1,32,1,32,1,32,3,32,240,8,32,1,
+        33,1,33,1,33,1,33,1,33,1,33,1,34,1,34,3,34,250,8,34,1,35,1,35,1,
+        35,1,35,1,35,1,36,1,36,1,36,1,37,1,37,1,37,1,37,3,37,264,8,37,1,
+        37,0,0,38,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,
+        40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,0,7,1,0,41,
+        42,1,0,34,39,3,0,20,20,23,23,25,25,2,0,22,22,26,26,3,0,19,19,22,
+        22,26,26,1,0,8,9,2,0,10,11,40,40,255,0,76,1,0,0,0,2,78,1,0,0,0,4,
+        80,1,0,0,0,6,87,1,0,0,0,8,90,1,0,0,0,10,99,1,0,0,0,12,101,1,0,0,
+        0,14,107,1,0,0,0,16,119,1,0,0,0,18,121,1,0,0,0,20,125,1,0,0,0,22,
+        127,1,0,0,0,24,130,1,0,0,0,26,136,1,0,0,0,28,138,1,0,0,0,30,146,
+        1,0,0,0,32,148,1,0,0,0,34,150,1,0,0,0,36,162,1,0,0,0,38,169,1,0,
+        0,0,40,177,1,0,0,0,42,179,1,0,0,0,44,186,1,0,0,0,46,188,1,0,0,0,
+        48,197,1,0,0,0,50,200,1,0,0,0,52,208,1,0,0,0,54,210,1,0,0,0,56,219,
+        1,0,0,0,58,226,1,0,0,0,60,228,1,0,0,0,62,232,1,0,0,0,64,239,1,0,
+        0,0,66,241,1,0,0,0,68,249,1,0,0,0,70,251,1,0,0,0,72,256,1,0,0,0,
+        74,263,1,0,0,0,76,77,7,0,0,0,77,1,1,0,0,0,78,79,7,1,0,0,79,3,1,0,
+        0,0,80,81,3,16,8,0,81,82,3,6,3,0,82,5,1,0,0,0,83,84,7,2,0,0,84,85,
+        3,16,8,0,85,86,3,6,3,0,86,88,1,0,0,0,87,83,1,0,0,0,87,88,1,0,0,0,
+        88,7,1,0,0,0,89,91,7,3,0,0,90,89,1,0,0,0,90,91,1,0,0,0,91,92,1,0,
+        0,0,92,93,3,4,2,0,93,94,3,10,5,0,94,9,1,0,0,0,95,96,7,4,0,0,96,97,
+        3,4,2,0,97,98,3,10,5,0,98,100,1,0,0,0,99,95,1,0,0,0,99,100,1,0,0,
+        0,100,11,1,0,0,0,101,102,3,8,4,0,102,103,3,14,7,0,103,13,1,0,0,0,
+        104,105,3,2,1,0,105,106,3,8,4,0,106,108,1,0,0,0,107,104,1,0,0,0,
+        107,108,1,0,0,0,108,15,1,0,0,0,109,120,3,18,9,0,110,120,3,0,0,0,
+        111,112,5,27,0,0,112,113,3,12,6,0,113,114,5,28,0,0,114,120,1,0,0,
+        0,115,116,5,21,0,0,116,120,3,16,8,0,117,120,5,12,0,0,118,120,5,13,
+        0,0,119,109,1,0,0,0,119,110,1,0,0,0,119,111,1,0,0,0,119,115,1,0,
+        0,0,119,117,1,0,0,0,119,118,1,0,0,0,120,17,1,0,0,0,121,122,5,40,
+        0,0,122,123,3,20,10,0,123,19,1,0,0,0,124,126,3,12,6,0,125,124,1,
+        0,0,0,125,126,1,0,0,0,126,21,1,0,0,0,127,128,3,32,16,0,128,129,3,
+        24,12,0,129,23,1,0,0,0,130,131,5,40,0,0,131,132,3,26,13,0,132,25,
+        1,0,0,0,133,134,5,6,0,0,134,135,5,40,0,0,135,137,3,26,13,0,136,133,
+        1,0,0,0,136,137,1,0,0,0,137,27,1,0,0,0,138,139,3,22,11,0,139,140,
+        3,30,15,0,140,141,5,3,0,0,141,29,1,0,0,0,142,143,5,3,0,0,143,144,
+        3,22,11,0,144,145,3,30,15,0,145,147,1,0,0,0,146,142,1,0,0,0,146,
+        147,1,0,0,0,147,31,1,0,0,0,148,149,7,5,0,0,149,33,1,0,0,0,150,151,
+        5,1,0,0,151,152,5,40,0,0,152,153,5,3,0,0,153,155,3,36,18,0,154,156,
+        5,33,0,0,155,154,1,0,0,0,156,157,1,0,0,0,157,155,1,0,0,0,157,158,
+        1,0,0,0,158,159,1,0,0,0,159,160,5,0,0,1,160,35,1,0,0,0,161,163,3,
+        28,14,0,162,161,1,0,0,0,162,163,1,0,0,0,163,165,1,0,0,0,164,166,
+        3,38,19,0,165,164,1,0,0,0,165,166,1,0,0,0,166,167,1,0,0,0,167,168,
+        3,54,27,0,168,37,1,0,0,0,169,170,3,42,21,0,170,171,5,3,0,0,171,172,
+        3,40,20,0,172,39,1,0,0,0,173,174,3,42,21,0,174,175,3,40,20,0,175,
+        176,5,3,0,0,176,178,1,0,0,0,177,173,1,0,0,0,177,178,1,0,0,0,178,
+        41,1,0,0,0,179,180,5,2,0,0,180,181,5,40,0,0,181,182,3,44,22,0,182,
+        183,5,3,0,0,183,184,3,36,18,0,184,43,1,0,0,0,185,187,3,46,23,0,186,
+        185,1,0,0,0,186,187,1,0,0,0,187,45,1,0,0,0,188,189,5,27,0,0,189,
+        190,3,50,25,0,190,191,3,48,24,0,191,192,5,28,0,0,192,47,1,0,0,0,
+        193,194,5,3,0,0,194,195,3,50,25,0,195,196,3,48,24,0,196,198,1,0,
+        0,0,197,193,1,0,0,0,197,198,1,0,0,0,198,49,1,0,0,0,199,201,5,7,0,
+        0,200,199,1,0,0,0,200,201,1,0,0,0,201,202,1,0,0,0,202,203,3,24,12,
+        0,203,204,5,5,0,0,204,205,3,52,26,0,205,51,1,0,0,0,206,209,5,40,
+        0,0,207,209,3,32,16,0,208,206,1,0,0,0,208,207,1,0,0,0,209,53,1,0,
+        0,0,210,211,5,14,0,0,211,212,3,58,29,0,212,213,3,56,28,0,213,214,
+        5,15,0,0,214,55,1,0,0,0,215,216,5,3,0,0,216,217,3,58,29,0,217,218,
+        3,56,28,0,218,220,1,0,0,0,219,215,1,0,0,0,219,220,1,0,0,0,220,57,
+        1,0,0,0,221,227,3,60,30,0,222,227,3,62,31,0,223,227,3,54,27,0,224,
+        227,3,66,33,0,225,227,3,70,35,0,226,221,1,0,0,0,226,222,1,0,0,0,
+        226,223,1,0,0,0,226,224,1,0,0,0,226,225,1,0,0,0,227,59,1,0,0,0,228,
+        229,3,18,9,0,229,230,5,4,0,0,230,231,3,12,6,0,231,61,1,0,0,0,232,
+        233,7,6,0,0,233,234,3,64,32,0,234,63,1,0,0,0,235,236,5,27,0,0,236,
+        237,3,72,36,0,237,238,5,28,0,0,238,240,1,0,0,0,239,235,1,0,0,0,239,
+        240,1,0,0,0,240,65,1,0,0,0,241,242,5,16,0,0,242,243,3,12,6,0,243,
+        244,5,17,0,0,244,245,3,58,29,0,245,246,3,68,34,0,246,67,1,0,0,0,
+        247,248,5,18,0,0,248,250,3,58,29,0,249,247,1,0,0,0,249,250,1,0,0,
+        0,250,69,1,0,0,0,251,252,5,31,0,0,252,253,3,12,6,0,253,254,5,32,
+        0,0,254,255,3,58,29,0,255,71,1,0,0,0,256,257,3,12,6,0,257,258,3,
+        74,37,0,258,73,1,0,0,0,259,260,5,6,0,0,260,261,3,12,6,0,261,262,
+        3,74,37,0,262,264,1,0,0,0,263,259,1,0,0,0,263,264,1,0,0,0,264,75,
+        1,0,0,0,21,87,90,99,107,119,125,136,146,157,162,165,177,186,197,
+        200,208,219,226,239,249,263
     ]
 
 class LangGrammar ( Parser ):
@@ -131,45 +132,46 @@ class LangGrammar ( Parser ):
     RULE_numero = 0
     RULE_relacao = 1
     RULE_termo = 2
-    RULE_expressaoSimples = 3
-    RULE_expressaoSimples1 = 4
-    RULE_expressao = 5
-    RULE_expressao1 = 6
-    RULE_fator = 7
-    RULE_variavel = 8
-    RULE_variavel1 = 9
-    RULE_declaracaoVariavel = 10
-    RULE_listaIdentificadores = 11
-    RULE_listaIdentificadores1 = 12
-    RULE_parteDeclaracaoVariavel = 13
-    RULE_parteDeclaracaoVariavel1 = 14
-    RULE_tipo = 15
-    RULE_programa = 16
-    RULE_bloco = 17
-    RULE_parteDeclaracaoSubRotina = 18
-    RULE_parteDeclaracaoSubRotina1 = 19
-    RULE_declaracaoProcedimento = 20
-    RULE_declaracaoProcedimento1 = 21
-    RULE_parametrosFormais = 22
-    RULE_parametrosFormais1 = 23
-    RULE_secaoParametrosFormais = 24
-    RULE_secaoParametrosFormais1 = 25
-    RULE_comandoComposto = 26
-    RULE_comandoComposto1 = 27
-    RULE_comando = 28
-    RULE_atribuicao = 29
-    RULE_chamadaProcedimento = 30
-    RULE_chamadaProcedimento1 = 31
-    RULE_comandoCondicional = 32
-    RULE_comandoCondicional1 = 33
-    RULE_comandoRepetitivo1 = 34
-    RULE_listaExpressao = 35
-    RULE_listaExpressao1 = 36
+    RULE_termo1 = 3
+    RULE_expressaoSimples = 4
+    RULE_expressaoSimples1 = 5
+    RULE_expressao = 6
+    RULE_expressao1 = 7
+    RULE_fator = 8
+    RULE_variavel = 9
+    RULE_variavel1 = 10
+    RULE_declaracaoVariavel = 11
+    RULE_listaIdentificadores = 12
+    RULE_listaIdentificadores1 = 13
+    RULE_parteDeclaracaoVariavel = 14
+    RULE_parteDeclaracaoVariavel1 = 15
+    RULE_tipo = 16
+    RULE_programa = 17
+    RULE_bloco = 18
+    RULE_parteDeclaracaoSubRotina = 19
+    RULE_parteDeclaracaoSubRotina1 = 20
+    RULE_declaracaoProcedimento = 21
+    RULE_declaracaoProcedimento1 = 22
+    RULE_parametrosFormais = 23
+    RULE_parametrosFormais1 = 24
+    RULE_secaoParametrosFormais = 25
+    RULE_secaoParametrosFormais1 = 26
+    RULE_comandoComposto = 27
+    RULE_comandoComposto1 = 28
+    RULE_comando = 29
+    RULE_atribuicao = 30
+    RULE_chamadaProcedimento = 31
+    RULE_chamadaProcedimento1 = 32
+    RULE_comandoCondicional = 33
+    RULE_comandoCondicional1 = 34
+    RULE_comandoRepetitivo1 = 35
+    RULE_listaExpressao = 36
+    RULE_listaExpressao1 = 37
 
-    ruleNames =  [ "numero", "relacao", "termo", "expressaoSimples", "expressaoSimples1", 
-                   "expressao", "expressao1", "fator", "variavel", "variavel1", 
-                   "declaracaoVariavel", "listaIdentificadores", "listaIdentificadores1", 
-                   "parteDeclaracaoVariavel", "parteDeclaracaoVariavel1", 
+    ruleNames =  [ "numero", "relacao", "termo", "termo1", "expressaoSimples", 
+                   "expressaoSimples1", "expressao", "expressao1", "fator", 
+                   "variavel", "variavel1", "declaracaoVariavel", "listaIdentificadores", 
+                   "listaIdentificadores1", "parteDeclaracaoVariavel", "parteDeclaracaoVariavel1", 
                    "tipo", "programa", "bloco", "parteDeclaracaoSubRotina", 
                    "parteDeclaracaoSubRotina1", "declaracaoProcedimento", 
                    "declaracaoProcedimento1", "parametrosFormais", "parametrosFormais1", 
@@ -271,7 +273,7 @@ class LangGrammar ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 74
+            self.state = 76
             _la = self._input.LA(1)
             if not(_la==41 or _la==42):
                 self._errHandler.recoverInline(self)
@@ -333,7 +335,7 @@ class LangGrammar ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 76
+            self.state = 78
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 1082331758592) != 0)):
                 self._errHandler.recoverInline(self)
@@ -356,30 +358,13 @@ class LangGrammar ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def fator(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(LangGrammar.FatorContext)
-            else:
-                return self.getTypedRuleContext(LangGrammar.FatorContext,i)
+        def fator(self):
+            return self.getTypedRuleContext(LangGrammar.FatorContext,0)
 
 
-        def MUL(self, i:int=None):
-            if i is None:
-                return self.getTokens(LangGrammar.MUL)
-            else:
-                return self.getToken(LangGrammar.MUL, i)
+        def termo1(self):
+            return self.getTypedRuleContext(LangGrammar.Termo1Context,0)
 
-        def INT_DIV(self, i:int=None):
-            if i is None:
-                return self.getTokens(LangGrammar.INT_DIV)
-            else:
-                return self.getToken(LangGrammar.INT_DIV, i)
-
-        def AND(self, i:int=None):
-            if i is None:
-                return self.getTokens(LangGrammar.AND)
-            else:
-                return self.getToken(LangGrammar.AND, i)
 
         def getRuleIndex(self):
             return LangGrammar.RULE_termo
@@ -399,28 +384,82 @@ class LangGrammar ( Parser ):
 
         localctx = LangGrammar.TermoContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_termo)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 80
+            self.fator()
+            self.state = 81
+            self.termo1()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Termo1Context(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def fator(self):
+            return self.getTypedRuleContext(LangGrammar.FatorContext,0)
+
+
+        def termo1(self):
+            return self.getTypedRuleContext(LangGrammar.Termo1Context,0)
+
+
+        def MUL(self):
+            return self.getToken(LangGrammar.MUL, 0)
+
+        def INT_DIV(self):
+            return self.getToken(LangGrammar.INT_DIV, 0)
+
+        def AND(self):
+            return self.getToken(LangGrammar.AND, 0)
+
+        def getRuleIndex(self):
+            return LangGrammar.RULE_termo1
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterTermo1" ):
+                listener.enterTermo1(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitTermo1" ):
+                listener.exitTermo1(self)
+
+
+
+
+    def termo1(self):
+
+        localctx = LangGrammar.Termo1Context(self, self._ctx, self.state)
+        self.enterRule(localctx, 6, self.RULE_termo1)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 78
-            self.fator()
-            self.state = 83
+            self.state = 87
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,0,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
-                    self.state = 79
-                    _la = self._input.LA(1)
-                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 42991616) != 0)):
-                        self._errHandler.recoverInline(self)
-                    else:
-                        self._errHandler.reportMatch(self)
-                        self.consume()
-                    self.state = 80
-                    self.fator() 
+            la_ = self._interp.adaptivePredict(self._input,0,self._ctx)
+            if la_ == 1:
+                self.state = 83
+                _la = self._input.LA(1)
+                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 42991616) != 0)):
+                    self._errHandler.recoverInline(self)
+                else:
+                    self._errHandler.reportMatch(self)
+                    self.consume()
+                self.state = 84
+                self.fator()
                 self.state = 85
-                self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,0,self._ctx)
+                self.termo1()
+
 
         except RecognitionException as re:
             localctx.exception = re
@@ -469,15 +508,15 @@ class LangGrammar ( Parser ):
     def expressaoSimples(self):
 
         localctx = LangGrammar.ExpressaoSimplesContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_expressaoSimples)
+        self.enterRule(localctx, 8, self.RULE_expressaoSimples)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 87
+            self.state = 90
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==22 or _la==26:
-                self.state = 86
+                self.state = 89
                 _la = self._input.LA(1)
                 if not(_la==22 or _la==26):
                     self._errHandler.recoverInline(self)
@@ -486,9 +525,9 @@ class LangGrammar ( Parser ):
                     self.consume()
 
 
-            self.state = 89
+            self.state = 92
             self.termo()
-            self.state = 90
+            self.state = 93
             self.expressaoSimples1()
         except RecognitionException as re:
             localctx.exception = re
@@ -540,24 +579,24 @@ class LangGrammar ( Parser ):
     def expressaoSimples1(self):
 
         localctx = LangGrammar.ExpressaoSimples1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 8, self.RULE_expressaoSimples1)
+        self.enterRule(localctx, 10, self.RULE_expressaoSimples1)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 96
+            self.state = 99
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
-                self.state = 92
+                self.state = 95
                 _la = self._input.LA(1)
                 if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 71827456) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
-                self.state = 93
+                self.state = 96
                 self.termo()
-                self.state = 94
+                self.state = 97
                 self.expressaoSimples1()
 
 
@@ -602,12 +641,12 @@ class LangGrammar ( Parser ):
     def expressao(self):
 
         localctx = LangGrammar.ExpressaoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 10, self.RULE_expressao)
+        self.enterRule(localctx, 12, self.RULE_expressao)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 98
+            self.state = 101
             self.expressaoSimples()
-            self.state = 99
+            self.state = 102
             self.expressao1()
         except RecognitionException as re:
             localctx.exception = re
@@ -650,16 +689,16 @@ class LangGrammar ( Parser ):
     def expressao1(self):
 
         localctx = LangGrammar.Expressao1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_expressao1)
+        self.enterRule(localctx, 14, self.RULE_expressao1)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 104
+            self.state = 107
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
             if la_ == 1:
-                self.state = 101
+                self.state = 104
                 self.relacao()
-                self.state = 102
+                self.state = 105
                 self.expressaoSimples()
 
 
@@ -727,40 +766,40 @@ class LangGrammar ( Parser ):
     def fator(self):
 
         localctx = LangGrammar.FatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_fator)
+        self.enterRule(localctx, 16, self.RULE_fator)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 116
+            self.state = 119
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [40]:
-                self.state = 106
+                self.state = 109
                 self.variavel()
                 pass
             elif token in [41, 42]:
-                self.state = 107
+                self.state = 110
                 self.numero()
                 pass
             elif token in [27]:
-                self.state = 108
+                self.state = 111
                 self.match(LangGrammar.LP)
-                self.state = 109
+                self.state = 112
                 self.expressao()
-                self.state = 110
+                self.state = 113
                 self.match(LangGrammar.RP)
                 pass
             elif token in [21]:
-                self.state = 112
+                self.state = 115
                 self.match(LangGrammar.NOT)
-                self.state = 113
+                self.state = 116
                 self.fator()
                 pass
             elif token in [12]:
-                self.state = 114
+                self.state = 117
                 self.match(LangGrammar.CONST_TRUE)
                 pass
             elif token in [13]:
-                self.state = 115
+                self.state = 118
                 self.match(LangGrammar.CONST_FALSE)
                 pass
             else:
@@ -806,12 +845,12 @@ class LangGrammar ( Parser ):
     def variavel(self):
 
         localctx = LangGrammar.VariavelContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_variavel)
+        self.enterRule(localctx, 18, self.RULE_variavel)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 118
+            self.state = 121
             self.match(LangGrammar.IDENTIFICADOR)
-            self.state = 119
+            self.state = 122
             self.variavel1()
         except RecognitionException as re:
             localctx.exception = re
@@ -850,14 +889,14 @@ class LangGrammar ( Parser ):
     def variavel1(self):
 
         localctx = LangGrammar.Variavel1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_variavel1)
+        self.enterRule(localctx, 20, self.RULE_variavel1)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 122
+            self.state = 125
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
             if la_ == 1:
-                self.state = 121
+                self.state = 124
                 self.expressao()
 
 
@@ -902,12 +941,12 @@ class LangGrammar ( Parser ):
     def declaracaoVariavel(self):
 
         localctx = LangGrammar.DeclaracaoVariavelContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_declaracaoVariavel)
+        self.enterRule(localctx, 22, self.RULE_declaracaoVariavel)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 124
+            self.state = 127
             self.tipo()
-            self.state = 125
+            self.state = 128
             self.listaIdentificadores()
         except RecognitionException as re:
             localctx.exception = re
@@ -949,12 +988,12 @@ class LangGrammar ( Parser ):
     def listaIdentificadores(self):
 
         localctx = LangGrammar.ListaIdentificadoresContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_listaIdentificadores)
+        self.enterRule(localctx, 24, self.RULE_listaIdentificadores)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 127
+            self.state = 130
             self.match(LangGrammar.IDENTIFICADOR)
-            self.state = 128
+            self.state = 131
             self.listaIdentificadores1()
         except RecognitionException as re:
             localctx.exception = re
@@ -999,19 +1038,19 @@ class LangGrammar ( Parser ):
     def listaIdentificadores1(self):
 
         localctx = LangGrammar.ListaIdentificadores1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_listaIdentificadores1)
+        self.enterRule(localctx, 26, self.RULE_listaIdentificadores1)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 133
+            self.state = 136
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==6:
-                self.state = 130
+                self.state = 133
                 self.match(LangGrammar.COMMA)
-                self.state = 131
+                self.state = 134
                 self.match(LangGrammar.IDENTIFICADOR)
-                self.state = 132
+                self.state = 135
                 self.listaIdentificadores1()
 
 
@@ -1059,14 +1098,14 @@ class LangGrammar ( Parser ):
     def parteDeclaracaoVariavel(self):
 
         localctx = LangGrammar.ParteDeclaracaoVariavelContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_parteDeclaracaoVariavel)
+        self.enterRule(localctx, 28, self.RULE_parteDeclaracaoVariavel)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 135
+            self.state = 138
             self.declaracaoVariavel()
-            self.state = 136
+            self.state = 139
             self.parteDeclaracaoVariavel1()
-            self.state = 137
+            self.state = 140
             self.match(LangGrammar.SEMICOLON)
         except RecognitionException as re:
             localctx.exception = re
@@ -1112,18 +1151,18 @@ class LangGrammar ( Parser ):
     def parteDeclaracaoVariavel1(self):
 
         localctx = LangGrammar.ParteDeclaracaoVariavel1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_parteDeclaracaoVariavel1)
+        self.enterRule(localctx, 30, self.RULE_parteDeclaracaoVariavel1)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 143
+            self.state = 146
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
             if la_ == 1:
-                self.state = 139
+                self.state = 142
                 self.match(LangGrammar.SEMICOLON)
-                self.state = 140
+                self.state = 143
                 self.declaracaoVariavel()
-                self.state = 141
+                self.state = 144
                 self.parteDeclaracaoVariavel1()
 
 
@@ -1166,11 +1205,11 @@ class LangGrammar ( Parser ):
     def tipo(self):
 
         localctx = LangGrammar.TipoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_tipo)
+        self.enterRule(localctx, 32, self.RULE_tipo)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 145
+            self.state = 148
             _la = self._input.LA(1)
             if not(_la==8 or _la==9):
                 self._errHandler.recoverInline(self)
@@ -1232,31 +1271,31 @@ class LangGrammar ( Parser ):
     def programa(self):
 
         localctx = LangGrammar.ProgramaContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_programa)
+        self.enterRule(localctx, 34, self.RULE_programa)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 147
-            self.match(LangGrammar.PROGRAM)
-            self.state = 148
-            self.match(LangGrammar.IDENTIFICADOR)
-            self.state = 149
-            self.match(LangGrammar.SEMICOLON)
             self.state = 150
+            self.match(LangGrammar.PROGRAM)
+            self.state = 151
+            self.match(LangGrammar.IDENTIFICADOR)
+            self.state = 152
+            self.match(LangGrammar.SEMICOLON)
+            self.state = 153
             self.bloco()
-            self.state = 152 
+            self.state = 155 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 151
+                self.state = 154
                 self.match(LangGrammar.DOT)
-                self.state = 154 
+                self.state = 157 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==33):
                     break
 
-            self.state = 156
+            self.state = 159
             self.match(LangGrammar.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -1303,27 +1342,27 @@ class LangGrammar ( Parser ):
     def bloco(self):
 
         localctx = LangGrammar.BlocoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_bloco)
+        self.enterRule(localctx, 36, self.RULE_bloco)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 159
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==8 or _la==9:
-                self.state = 158
-                self.parteDeclaracaoVariavel()
-
-
             self.state = 162
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==2:
+            if _la==8 or _la==9:
                 self.state = 161
+                self.parteDeclaracaoVariavel()
+
+
+            self.state = 165
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==2:
+                self.state = 164
                 self.parteDeclaracaoSubRotina()
 
 
-            self.state = 164
+            self.state = 167
             self.comandoComposto()
         except RecognitionException as re:
             localctx.exception = re
@@ -1345,12 +1384,12 @@ class LangGrammar ( Parser ):
             return self.getTypedRuleContext(LangGrammar.DeclaracaoProcedimentoContext,0)
 
 
+        def SEMICOLON(self):
+            return self.getToken(LangGrammar.SEMICOLON, 0)
+
         def parteDeclaracaoSubRotina1(self):
             return self.getTypedRuleContext(LangGrammar.ParteDeclaracaoSubRotina1Context,0)
 
-
-        def SEMICOLON(self):
-            return self.getToken(LangGrammar.SEMICOLON, 0)
 
         def getRuleIndex(self):
             return LangGrammar.RULE_parteDeclaracaoSubRotina
@@ -1369,15 +1408,15 @@ class LangGrammar ( Parser ):
     def parteDeclaracaoSubRotina(self):
 
         localctx = LangGrammar.ParteDeclaracaoSubRotinaContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_parteDeclaracaoSubRotina)
+        self.enterRule(localctx, 38, self.RULE_parteDeclaracaoSubRotina)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 166
+            self.state = 169
             self.declaracaoProcedimento()
-            self.state = 167
-            self.parteDeclaracaoSubRotina1()
-            self.state = 168
+            self.state = 170
             self.match(LangGrammar.SEMICOLON)
+            self.state = 171
+            self.parteDeclaracaoSubRotina1()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1394,9 +1433,6 @@ class LangGrammar ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def SEMICOLON(self):
-            return self.getToken(LangGrammar.SEMICOLON, 0)
-
         def declaracaoProcedimento(self):
             return self.getTypedRuleContext(LangGrammar.DeclaracaoProcedimentoContext,0)
 
@@ -1404,6 +1440,9 @@ class LangGrammar ( Parser ):
         def parteDeclaracaoSubRotina1(self):
             return self.getTypedRuleContext(LangGrammar.ParteDeclaracaoSubRotina1Context,0)
 
+
+        def SEMICOLON(self):
+            return self.getToken(LangGrammar.SEMICOLON, 0)
 
         def getRuleIndex(self):
             return LangGrammar.RULE_parteDeclaracaoSubRotina1
@@ -1422,19 +1461,20 @@ class LangGrammar ( Parser ):
     def parteDeclaracaoSubRotina1(self):
 
         localctx = LangGrammar.ParteDeclaracaoSubRotina1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_parteDeclaracaoSubRotina1)
+        self.enterRule(localctx, 40, self.RULE_parteDeclaracaoSubRotina1)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 174
+            self.state = 177
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
-            if la_ == 1:
-                self.state = 170
-                self.match(LangGrammar.SEMICOLON)
-                self.state = 171
+            _la = self._input.LA(1)
+            if _la==2:
+                self.state = 173
                 self.declaracaoProcedimento()
-                self.state = 172
+                self.state = 174
                 self.parteDeclaracaoSubRotina1()
+                self.state = 175
+                self.match(LangGrammar.SEMICOLON)
 
 
         except RecognitionException as re:
@@ -1487,18 +1527,18 @@ class LangGrammar ( Parser ):
     def declaracaoProcedimento(self):
 
         localctx = LangGrammar.DeclaracaoProcedimentoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_declaracaoProcedimento)
+        self.enterRule(localctx, 42, self.RULE_declaracaoProcedimento)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 176
-            self.match(LangGrammar.PROCEDURE)
-            self.state = 177
-            self.match(LangGrammar.IDENTIFICADOR)
-            self.state = 178
-            self.declaracaoProcedimento1()
             self.state = 179
-            self.match(LangGrammar.SEMICOLON)
+            self.match(LangGrammar.PROCEDURE)
             self.state = 180
+            self.match(LangGrammar.IDENTIFICADOR)
+            self.state = 181
+            self.declaracaoProcedimento1()
+            self.state = 182
+            self.match(LangGrammar.SEMICOLON)
+            self.state = 183
             self.bloco()
         except RecognitionException as re:
             localctx.exception = re
@@ -1537,15 +1577,15 @@ class LangGrammar ( Parser ):
     def declaracaoProcedimento1(self):
 
         localctx = LangGrammar.DeclaracaoProcedimento1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_declaracaoProcedimento1)
+        self.enterRule(localctx, 44, self.RULE_declaracaoProcedimento1)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 183
+            self.state = 186
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==27:
-                self.state = 182
+                self.state = 185
                 self.parametrosFormais()
 
 
@@ -1596,16 +1636,16 @@ class LangGrammar ( Parser ):
     def parametrosFormais(self):
 
         localctx = LangGrammar.ParametrosFormaisContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_parametrosFormais)
+        self.enterRule(localctx, 46, self.RULE_parametrosFormais)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 185
-            self.match(LangGrammar.LP)
-            self.state = 186
-            self.secaoParametrosFormais()
-            self.state = 187
-            self.parametrosFormais1()
             self.state = 188
+            self.match(LangGrammar.LP)
+            self.state = 189
+            self.secaoParametrosFormais()
+            self.state = 190
+            self.parametrosFormais1()
+            self.state = 191
             self.match(LangGrammar.RP)
         except RecognitionException as re:
             localctx.exception = re
@@ -1651,19 +1691,19 @@ class LangGrammar ( Parser ):
     def parametrosFormais1(self):
 
         localctx = LangGrammar.ParametrosFormais1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_parametrosFormais1)
+        self.enterRule(localctx, 48, self.RULE_parametrosFormais1)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 194
+            self.state = 197
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==3:
-                self.state = 190
+                self.state = 193
                 self.match(LangGrammar.SEMICOLON)
-                self.state = 191
+                self.state = 194
                 self.secaoParametrosFormais()
-                self.state = 192
+                self.state = 195
                 self.parametrosFormais1()
 
 
@@ -1714,23 +1754,23 @@ class LangGrammar ( Parser ):
     def secaoParametrosFormais(self):
 
         localctx = LangGrammar.SecaoParametrosFormaisContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_secaoParametrosFormais)
+        self.enterRule(localctx, 50, self.RULE_secaoParametrosFormais)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 197
+            self.state = 200
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==7:
-                self.state = 196
+                self.state = 199
                 self.match(LangGrammar.VAR)
 
 
-            self.state = 199
+            self.state = 202
             self.listaIdentificadores()
-            self.state = 200
+            self.state = 203
             self.match(LangGrammar.COLON)
-            self.state = 201
+            self.state = 204
             self.secaoParametrosFormais1()
         except RecognitionException as re:
             localctx.exception = re
@@ -1772,19 +1812,19 @@ class LangGrammar ( Parser ):
     def secaoParametrosFormais1(self):
 
         localctx = LangGrammar.SecaoParametrosFormais1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_secaoParametrosFormais1)
+        self.enterRule(localctx, 52, self.RULE_secaoParametrosFormais1)
         try:
-            self.state = 205
+            self.state = 208
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [40]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 203
+                self.state = 206
                 self.match(LangGrammar.IDENTIFICADOR)
                 pass
             elif token in [8, 9]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 204
+                self.state = 207
                 self.tipo()
                 pass
             else:
@@ -1837,16 +1877,16 @@ class LangGrammar ( Parser ):
     def comandoComposto(self):
 
         localctx = LangGrammar.ComandoCompostoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 52, self.RULE_comandoComposto)
+        self.enterRule(localctx, 54, self.RULE_comandoComposto)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 207
-            self.match(LangGrammar.BEGIN)
-            self.state = 208
-            self.comando()
-            self.state = 209
-            self.comandoComposto1()
             self.state = 210
+            self.match(LangGrammar.BEGIN)
+            self.state = 211
+            self.comando()
+            self.state = 212
+            self.comandoComposto1()
+            self.state = 213
             self.match(LangGrammar.END)
         except RecognitionException as re:
             localctx.exception = re
@@ -1892,19 +1932,19 @@ class LangGrammar ( Parser ):
     def comandoComposto1(self):
 
         localctx = LangGrammar.ComandoComposto1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 54, self.RULE_comandoComposto1)
+        self.enterRule(localctx, 56, self.RULE_comandoComposto1)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 216
+            self.state = 219
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==3:
-                self.state = 212
+                self.state = 215
                 self.match(LangGrammar.SEMICOLON)
-                self.state = 213
+                self.state = 216
                 self.comando()
-                self.state = 214
+                self.state = 217
                 self.comandoComposto1()
 
 
@@ -1961,34 +2001,34 @@ class LangGrammar ( Parser ):
     def comando(self):
 
         localctx = LangGrammar.ComandoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 56, self.RULE_comando)
+        self.enterRule(localctx, 58, self.RULE_comando)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 223
+            self.state = 226
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
             if la_ == 1:
-                self.state = 218
+                self.state = 221
                 self.atribuicao()
                 pass
 
             elif la_ == 2:
-                self.state = 219
+                self.state = 222
                 self.chamadaProcedimento()
                 pass
 
             elif la_ == 3:
-                self.state = 220
+                self.state = 223
                 self.comandoComposto()
                 pass
 
             elif la_ == 4:
-                self.state = 221
+                self.state = 224
                 self.comandoCondicional()
                 pass
 
             elif la_ == 5:
-                self.state = 222
+                self.state = 225
                 self.comandoRepetitivo1()
                 pass
 
@@ -2037,14 +2077,14 @@ class LangGrammar ( Parser ):
     def atribuicao(self):
 
         localctx = LangGrammar.AtribuicaoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 58, self.RULE_atribuicao)
+        self.enterRule(localctx, 60, self.RULE_atribuicao)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 225
+            self.state = 228
             self.variavel()
-            self.state = 226
+            self.state = 229
             self.match(LangGrammar.ATTRIB)
-            self.state = 227
+            self.state = 230
             self.expressao()
         except RecognitionException as re:
             localctx.exception = re
@@ -2092,18 +2132,18 @@ class LangGrammar ( Parser ):
     def chamadaProcedimento(self):
 
         localctx = LangGrammar.ChamadaProcedimentoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 60, self.RULE_chamadaProcedimento)
+        self.enterRule(localctx, 62, self.RULE_chamadaProcedimento)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 229
+            self.state = 232
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 1099511630848) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 230
+            self.state = 233
             self.chamadaProcedimento1()
         except RecognitionException as re:
             localctx.exception = re
@@ -2148,19 +2188,19 @@ class LangGrammar ( Parser ):
     def chamadaProcedimento1(self):
 
         localctx = LangGrammar.ChamadaProcedimento1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 62, self.RULE_chamadaProcedimento1)
+        self.enterRule(localctx, 64, self.RULE_chamadaProcedimento1)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 236
+            self.state = 239
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==27:
-                self.state = 232
+                self.state = 235
                 self.match(LangGrammar.LP)
-                self.state = 233
+                self.state = 236
                 self.listaExpressao()
-                self.state = 234
+                self.state = 237
                 self.match(LangGrammar.RP)
 
 
@@ -2215,18 +2255,18 @@ class LangGrammar ( Parser ):
     def comandoCondicional(self):
 
         localctx = LangGrammar.ComandoCondicionalContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 64, self.RULE_comandoCondicional)
+        self.enterRule(localctx, 66, self.RULE_comandoCondicional)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 238
-            self.match(LangGrammar.IF)
-            self.state = 239
-            self.expressao()
-            self.state = 240
-            self.match(LangGrammar.THEN)
             self.state = 241
-            self.comando()
+            self.match(LangGrammar.IF)
             self.state = 242
+            self.expressao()
+            self.state = 243
+            self.match(LangGrammar.THEN)
+            self.state = 244
+            self.comando()
+            self.state = 245
             self.comandoCondicional1()
         except RecognitionException as re:
             localctx.exception = re
@@ -2268,16 +2308,16 @@ class LangGrammar ( Parser ):
     def comandoCondicional1(self):
 
         localctx = LangGrammar.ComandoCondicional1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 66, self.RULE_comandoCondicional1)
+        self.enterRule(localctx, 68, self.RULE_comandoCondicional1)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 246
+            self.state = 249
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
             if la_ == 1:
-                self.state = 244
+                self.state = 247
                 self.match(LangGrammar.ELSE)
-                self.state = 245
+                self.state = 248
                 self.comando()
 
 
@@ -2328,16 +2368,16 @@ class LangGrammar ( Parser ):
     def comandoRepetitivo1(self):
 
         localctx = LangGrammar.ComandoRepetitivo1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 68, self.RULE_comandoRepetitivo1)
+        self.enterRule(localctx, 70, self.RULE_comandoRepetitivo1)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 248
-            self.match(LangGrammar.WHILE)
-            self.state = 249
-            self.expressao()
-            self.state = 250
-            self.match(LangGrammar.DO)
             self.state = 251
+            self.match(LangGrammar.WHILE)
+            self.state = 252
+            self.expressao()
+            self.state = 253
+            self.match(LangGrammar.DO)
+            self.state = 254
             self.comando()
         except RecognitionException as re:
             localctx.exception = re
@@ -2380,12 +2420,12 @@ class LangGrammar ( Parser ):
     def listaExpressao(self):
 
         localctx = LangGrammar.ListaExpressaoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 70, self.RULE_listaExpressao)
+        self.enterRule(localctx, 72, self.RULE_listaExpressao)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 253
+            self.state = 256
             self.expressao()
-            self.state = 254
+            self.state = 257
             self.listaExpressao1()
         except RecognitionException as re:
             localctx.exception = re
@@ -2431,19 +2471,19 @@ class LangGrammar ( Parser ):
     def listaExpressao1(self):
 
         localctx = LangGrammar.ListaExpressao1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 72, self.RULE_listaExpressao1)
+        self.enterRule(localctx, 74, self.RULE_listaExpressao1)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 260
+            self.state = 263
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==6:
-                self.state = 256
+                self.state = 259
                 self.match(LangGrammar.COMMA)
-                self.state = 257
+                self.state = 260
                 self.expressao()
-                self.state = 258
+                self.state = 261
                 self.listaExpressao1()
 
 
