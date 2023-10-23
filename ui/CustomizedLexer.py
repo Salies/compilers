@@ -58,7 +58,7 @@ class CustomizedLexer(QsciLexerCustom):
         text = self.parent().text()
         
         # divide o texto em tokens
-        p = re.compile(r"\s+|\w+|\/\/|\W")
+        p = re.compile(r"\s+|\w+|\/\/|\W|\t")
         token_list = [ (token, len(bytearray(token, "utf-8"))) for token in p.findall(text)]
 
         # flags para controle de comentário
@@ -78,7 +78,7 @@ class CustomizedLexer(QsciLexerCustom):
                         comment_flag = False
                 else:
                     # checa se é um final de linha
-                    if token[0][-1] in ["\n", "\r"]:
+                    if token[0][0] in ["\n", "\r", "\t"] or token[0][-1] in ["\n", "\r", "\t"]:
                         comment_flag = False
             # se não estiver em modo comentário, checa a syntax highlight
             else:

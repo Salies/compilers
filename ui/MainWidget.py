@@ -136,7 +136,7 @@ class MainWidget(QWidget):
         lexer.addErrorListener(errorListener)
         parser.addErrorListener(errorListener)
         # parse
-        tree = parser.parteDeclaracaoVariavel()
+        tree = parser.programa()
         # output errors
         self.sinOutput.setText(errorListener.getErrors())
         
