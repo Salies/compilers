@@ -53,6 +53,15 @@ class CustomErrorStrategy(DefaultErrorStrategy):
             + expecting.toString(recognizer.literalNames, recognizer.symbolicNames)
         recognizer.notifyErrorListeners(msg, t, None)
 
+    def reportMissingToken(self, recognizer:Parser):
+        if self.inErrorRecoveryMode(recognizer):
+            return
+        self.beginErrorCondition(recognizer)
+        t = recognizer.getCurrentToken()
+        expecting = self.getExpectedTokens(recognizer)
+        msg = "esperava-se " + expecting.toString(recognizer.literalNames, recognizer.symbolicNames)
+        recognizer.notifyErrorListeners(msg, t, None)
+
     def reportError(self, recognizer:Parser, e:RecognitionException):
        # if we've already reported an error and have not matched a token
        # yet successfully, don't report any errors.
