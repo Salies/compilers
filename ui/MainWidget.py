@@ -93,6 +93,7 @@ class MainWidget(QWidget):
     def analyze(self):
         self.lex()
         self.sintaxAnalysis()
+        self.semantics()
 
     def lex(self):
         # pega texto do editor
@@ -107,21 +108,21 @@ class MainWidget(QWidget):
         # monta a listinha pra tabela
         token_list = [[token.text, lexer.symbolicNames[token.type], token.line, token.column, token.column + len(token.text)] for token in tokens]
         # lista para pegar os erros e exibir no output
-        lex_errors = []
+        self.lex_errors = []
         # atualiza a tabela
         self.table.setRowCount(len(token_list))
         self.filtered_code = code
         for i, token in enumerate(token_list):
             # se o token for um erro, adiciona na lista de erros
             if token[1] == "INVALID_TOKEN":
-                lex_errors.append(token)
+                self.lex_errors.append(token)
                 # remove do código
                 self.filtered_code = self.filtered_code.replace(token[0], "")
             for j, value in enumerate(token):
                 self.table.setItem(i, j, QTableWidgetItem(str(value)))
         # output errors
         error_template = "Lexema inválido: '{lexema}', na linha {linha}, coluna {coluna}."
-        self.lexOutput.setText("\n".join([error_template.format(lexema=token[0], linha=token[2], coluna=token[3]) for token in lex_errors]))
+        self.lexOutput.setText("\n".join([error_template.format(lexema=token[0], linha=token[2], coluna=token[3]) for token in self.lex_errors]))
 
     def sintaxAnalysis(self):
         lexer = LangLexer(InputStream(self.filtered_code))
@@ -136,8 +137,15 @@ class MainWidget(QWidget):
         lexer.addErrorListener(errorListener)
         parser.addErrorListener(errorListener)
         # parse
-        tree = parser.programa()
+        parser.programa()
         # output errors
-        self.sinOutput.setText(errorListener.getErrors())
+        self.sinOutput.setText(errorListener.getErrorsAsStr())
+        self.sin_errors = errorListener.getErrors()
+
+    def semantics(self):
+        if(len(self.sin_errors) != 0 or len(self.lex_errors) != 0):
+            print('não dá, volta!')
+            return
+        print('bora')
         
 

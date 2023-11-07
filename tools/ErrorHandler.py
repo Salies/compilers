@@ -91,5 +91,8 @@ class ErrorListener(ANTLRErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         self.errors.append("Erro na linha " + str(line) + ", coluna " + str(column) + ": " + msg)
     
-    def getErrors(self):
+    def getErrorsAsStr(self):
         return '\n\n'.join(self.errors) if len(self.errors) > 0 else ''
+    
+    def getErrors(self):
+        return self.errors
