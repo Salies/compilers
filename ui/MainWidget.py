@@ -11,6 +11,7 @@ from tools.LangLexer import LangLexer
 from tools.LangGrammar import LangGrammar
 from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from ui.CustomizedLexer import CustomizedLexer
+from ana.Lexical import Lexical
 
 class MainWidget(QWidget):
     def __init__(self):
@@ -99,30 +100,10 @@ class MainWidget(QWidget):
         # pega texto do editor
         # nota: toPlainText() ainda mantém a quebra de linha, ou seja, sem problemas
         code = self.getCode()
-        # create stream from code
-        stream = InputStream(code)
-        # cria lexer a partir da stream
-        lexer = LangLexer(stream)
-        # pega os tokens
-        tokens = lexer.getAllTokens()
-        # monta a listinha pra tabela
-        token_list = [[token.text, lexer.symbolicNames[token.type], token.line, token.column, token.column + len(token.text)] for token in tokens]
-        # lista para pegar os erros e exibir no output
-        self.lex_errors = []
-        # atualiza a tabela
-        self.table.setRowCount(len(token_list))
-        self.filtered_code = code
-        for i, token in enumerate(token_list):
-            # se o token for um erro, adiciona na lista de erros
-            if token[1] == "INVALID_TOKEN":
-                self.lex_errors.append(token)
-                # remove do código
-                self.filtered_code = self.filtered_code.replace(token[0], "")
-            for j, value in enumerate(token):
-                self.table.setItem(i, j, QTableWidgetItem(str(value)))
-        # output errors
-        error_template = "Lexema inválido: '{lexema}', na linha {linha}, coluna {coluna}."
-        self.lexOutput.setText("\n".join([error_template.format(lexema=token[0], linha=token[2], coluna=token[3]) for token in self.lex_errors]))
+        filtered_code, lex_errors, out_txt = Lexical.ana(code, self.table)
+        self.filtered_code = filtered_code
+        self.lex_errors = lex_errors
+        self.lexOutput.setText(out_txt)
 
     def sintaxAnalysis(self):
         lexer = LangLexer(InputStream(self.filtered_code))
