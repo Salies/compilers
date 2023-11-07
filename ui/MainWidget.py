@@ -11,7 +11,7 @@ from tools.LangLexer import LangLexer
 from tools.LangGrammar import LangGrammar
 from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from ui.CustomizedLexer import CustomizedLexer
-from ana.Lexical import Lexical
+from ana.Ana import Ana
 
 class MainWidget(QWidget):
     def __init__(self):
@@ -100,9 +100,7 @@ class MainWidget(QWidget):
         # pega texto do editor
         # nota: toPlainText() ainda mantém a quebra de linha, ou seja, sem problemas
         code = self.getCode()
-        filtered_code, lex_errors, out_txt = Lexical.ana(code, self.table)
-        self.filtered_code = filtered_code
-        self.lex_errors = lex_errors
+        self.filtered_code, self.lex_errors, out_txt, self.all_tokens = Ana.lex(code, self.table)
         self.lexOutput.setText(out_txt)
 
     def sintaxAnalysis(self):
@@ -125,8 +123,8 @@ class MainWidget(QWidget):
 
     def semantics(self):
         if(len(self.sin_errors) != 0 or len(self.lex_errors) != 0):
-            print('não dá, volta!')
             return
-        print('bora')
+        Ana.semantics(self.all_tokens)
+
         
 

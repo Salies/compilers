@@ -2,8 +2,8 @@ from antlr4 import *
 from tools.LangLexer import LangLexer
 from PyQt6.QtWidgets import QTableWidgetItem
 
-class Lexical:
-    def ana(code, table):
+class Ana:
+    def lex(code, table):
         stream = InputStream(code)
         # cria lexer a partir da stream
         lexer = LangLexer(stream)
@@ -27,4 +27,8 @@ class Lexical:
         # output errors
         error_template = "Lexema inválido: '{lexema}', na linha {linha}, coluna {coluna}."
         out_txt = "\n".join([error_template.format(lexema=token[0], linha=token[2], coluna=token[3]) for token in lex_errors])
-        return filtered_code, lex_errors, out_txt
+        return filtered_code, lex_errors, out_txt, tokens
+    
+    def semantics(tokens):
+        print('començando análise semantica')
+
