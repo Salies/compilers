@@ -1,5 +1,7 @@
 from antlr4 import *
 from tools.LangLexer import LangLexer
+from tools.LangGrammar import LangGrammar
+from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from PyQt6.QtWidgets import QTableWidgetItem
 
 class Ana:
@@ -28,6 +30,22 @@ class Ana:
         error_template = "Lexema inválido: '{lexema}', na linha {linha}, coluna {coluna}."
         out_txt = "\n".join([error_template.format(lexema=token[0], linha=token[2], coluna=token[3]) for token in lex_errors])
         return filtered_code, lex_errors, out_txt, tokens
+    
+    def sintax(filtered_code):
+        lexer = LangLexer(InputStream(filtered_code))
+        tokens = CommonTokenStream(lexer)
+        parser = LangGrammar(tokens)
+        # custom error strategy
+        parser._errHandler = CustomErrorStrategy()
+        # custom error listener
+        errorListener = ErrorListener()
+        lexer.removeErrorListeners()
+        parser.removeErrorListeners()
+        lexer.addErrorListener(errorListener)
+        parser.addErrorListener(errorListener)
+        # parse
+        parser.programa()
+        return errorListener.getErrorsAsStr(), errorListener.getErrors()
     
     def semantics(tokens):
         print('començando análise semantica')

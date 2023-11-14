@@ -3,15 +3,22 @@
 # Daniel Serezane e Gabriel Nozawa
 # Widget principal da UI
 
-from PyQt6.QtWidgets import QTextEdit, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QTableWidget, QHeaderView, QPushButton, QTableWidgetItem
+from PyQt6.QtWidgets import (
+    QTextEdit, QWidget, QHBoxLayout, 
+    QVBoxLayout, QTableWidget, QHeaderView, 
+    QPushButton, QTabWidget
+)
 from PyQt6.QtGui import QFont
 from PyQt6.Qsci import *
 from antlr4 import *
-from tools.LangLexer import LangLexer
-from tools.LangGrammar import LangGrammar
-from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from ui.CustomizedLexer import CustomizedLexer
 from ana.Ana import Ana
+
+def inputFactory():
+    editWidget = QTextEdit()
+    editWidget.setFixedHeight(100)
+    editWidget.setReadOnly(True)
+    return editWidget
 
 class MainWidget(QWidget):
     def __init__(self):
@@ -47,23 +54,18 @@ class MainWidget(QWidget):
         self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self.table.setRowCount(0)
         # Criando outputs léxico e sintático
-        lexTitle = QLabel("<b>Erros léxicos</b>")
-        self.lexOutput = QTextEdit()
-        self.lexOutput.setReadOnly(True)
-        lexLayout.addStretch()
-        lexLayout.addWidget(lexTitle)
+        self.tabWidget = QTabWidget() # tab widget para alternar
+        self.lexOutput = inputFactory()
+        self.sinOutput = inputFactory()
+        self.semOutput = inputFactory()
         lexLayout.addWidget(self.lexOutput)
-        sinTitle = QLabel("<b>Erros sintáticos</b>")
-        self.sinOutput = QTextEdit()
-        self.sinOutput.setReadOnly(True)
-        sinLayout.addStretch()
-        sinLayout.addWidget(sinTitle)
         sinLayout.addWidget(self.sinOutput)
-        # smaller textedit height
-        self.lexOutput.setFixedHeight(100)
-        self.sinOutput.setFixedHeight(100)
-        bottomLayout.addLayout(lexLayout)
-        bottomLayout.addLayout(sinLayout)
+        # adapt tab widget to fit textedit
+        self.tabWidget.setFixedHeight(129)
+        self.tabWidget.addTab(self.lexOutput, "Erros léxicos")
+        self.tabWidget.addTab(self.sinOutput, "Erros sintáticos")
+        self.tabWidget.addTab(self.semOutput, "Erros semânticos")
+        bottomLayout.addWidget(self.tabWidget)
         edAndTableLay.addWidget(self.editor)
         edAndTableLay.addWidget(self.table)
         # buttons layout
@@ -93,7 +95,12 @@ class MainWidget(QWidget):
     
     def analyze(self):
         self.lex()
+        # muda título da tab de erros léxicos para: Erros léxicos (qtd_erros)
+        qtd_err_lex = len(self.lex_errors)
+        self.tabWidget.setTabText(0, f"Erros léxicos ({qtd_err_lex})")
         self.sintaxAnalysis()
+        qtd_err_sintax = len(self.sin_errors)
+        self.tabWidget.setTabText(1, f"Erros sintáticos ({qtd_err_sintax})")
         self.semantics()
 
     def lex(self):
@@ -104,22 +111,10 @@ class MainWidget(QWidget):
         self.lexOutput.setText(out_txt)
 
     def sintaxAnalysis(self):
-        lexer = LangLexer(InputStream(self.filtered_code))
-        tokens = CommonTokenStream(lexer)
-        parser = LangGrammar(tokens)
-        # custom error strategy
-        parser._errHandler = CustomErrorStrategy()
-        # custom error listener
-        errorListener = ErrorListener()
-        lexer.removeErrorListeners()
-        parser.removeErrorListeners()
-        lexer.addErrorListener(errorListener)
-        parser.addErrorListener(errorListener)
-        # parse
-        parser.programa()
+        errStr, sinErrors = Ana.sintax(self.filtered_code)
         # output errors
-        self.sinOutput.setText(errorListener.getErrorsAsStr())
-        self.sin_errors = errorListener.getErrors()
+        self.sinOutput.setText(errStr)
+        self.sin_errors = sinErrors
 
     def semantics(self):
         if(len(self.sin_errors) != 0 or len(self.lex_errors) != 0):
