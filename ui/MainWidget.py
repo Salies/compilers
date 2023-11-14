@@ -3,13 +3,14 @@
 # Daniel Serezane e Gabriel Nozawa
 # Widget principal da UI
 
-from PyQt6.QtWidgets import QTextEdit, QLabel, QWidget, QHBoxLayout, QVBoxLayout, QTableWidget, QHeaderView, QPushButton, QTabWidget
+from PyQt6.QtWidgets import (
+    QTextEdit, QWidget, QHBoxLayout, 
+    QVBoxLayout, QTableWidget, QHeaderView, 
+    QPushButton, QTabWidget
+)
 from PyQt6.QtGui import QFont
 from PyQt6.Qsci import *
 from antlr4 import *
-from tools.LangLexer import LangLexer
-from tools.LangGrammar import LangGrammar
-from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from ui.CustomizedLexer import CustomizedLexer
 from ana.Ana import Ana
 
