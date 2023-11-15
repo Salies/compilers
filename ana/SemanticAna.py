@@ -1,4 +1,3 @@
-# Generated from ./tools/LangGrammar.g4 by ANTLR 4.13.0
 from __future__ import annotations
 from typing import Optional
 from tools.LangGrammar import LangGrammar
@@ -21,8 +20,19 @@ class Scope:
     def resolve(self, name: str) -> Optional[Symbol]:
         return self.symbols.get(name)
     
-# This class defines a complete generic visitor for a parse tree produced by LangGrammar.
+# Objetivos da análise semântica:
+# * Variável ou procedimento não declarado
+# * Variável ou procedimento declarado mais de uma vez
+# * Incompatibilidade de parâmetros formais e reais: número, ordeme tipo
+# * Uso de variáveis variáveis de escopo inadequado
+# * Atribuição de um inteiro a um booleano
+# * Divisão que não é entre números inteiros
+# * Variável declarada e nunca utilizada
+# * Read e write com variáveis de tipo diferentes
+# * Tratamento de escopo
+#   - Erro: variável local a um procedimento utilizada no programa principa
 
+# Esta classe herda e sobrescreve o visitor do ANTLR para fazer a análise semântica
 class SemanticAna(LangGrammarVisitor):
     
     def __init__(self):
