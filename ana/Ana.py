@@ -53,8 +53,10 @@ class Ana:
     
     def semantics(tree):
         print('començando análise semantica')
-        errorListener = ANTLRErrorListener()
+        errorListener = ErrorListener()
         semanticAna = SemanticAna(errorListener)
         semanticAna.visit(tree)
+        # print errors
+        print(errorListener.getErrorsAsStr())
 
 

@@ -96,3 +96,6 @@ class ErrorListener(ANTLRErrorListener):
     
     def getErrors(self):
         return self.errors
+    
+    def addError(self, error_str, line, column):
+        self.errors.append("Erro na linha " + str(line) + ", coluna " + str(column) + ": " + error_str)

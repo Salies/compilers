@@ -36,7 +36,7 @@ class Scope:
 class SemanticAna(LangGrammarVisitor):
     
     def __init__(self, errorListener):
-        self.current_scope: Optional[Scope] = None
+        self.current_scope: Scope = Scope("global")
         self.errorListener = errorListener
 
 
@@ -46,7 +46,8 @@ class SemanticAna(LangGrammarVisitor):
 
 
     def exitScope(self):
-        self.current_scope = self.current_scope.enclosing_scope
+        if self.current_scope.enclosing_scope is not None:
+            self.current_scope = self.current_scope.enclosing_scope
 
     # Variável não declarada
     # Variáveis só aparecem em dois contextos, além de sua declaração:
@@ -54,5 +55,10 @@ class SemanticAna(LangGrammarVisitor):
 
     # Visit a parse tree produced by LangGrammar#atribuicao.
     def visitAtribuicao(self, ctx:LangGrammar.AtribuicaoContext):
-        nome_variavel = ctx.variavel().getText()
-        print('visitAtribuicao', nome_variavel)
+        variavel = ctx.variavel()
+        assert variavel is not None
+        nome_variavel = variavel.IDENTIFICADOR().getText()
+        symbol = self.current_scope.resolve(nome_variavel)
+        if symbol is None:
+           return self.errorListener.addError(f"Variável '{nome_variavel}' não declarada.", variavel.start.line, variavel.start.column)
+        #return self.visitChildren(ctx)
