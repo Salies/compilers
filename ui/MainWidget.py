@@ -120,15 +120,14 @@ class MainWidget(QWidget):
         self.lexOutput.setText(out_txt)
 
     def sintaxAnalysis(self):
-        errStr, sinErrors = Ana.sintax(self.filtered_code)
+        errStr, self.sin_errors, self.tree = Ana.sintax(self.filtered_code)
         # output errors
         self.sinOutput.setText(errStr)
-        self.sin_errors = sinErrors
 
     def semantics(self):
         if(len(self.sin_errors) != 0 or len(self.lex_errors) != 0):
             return
-        Ana.semantics(self.all_tokens)
+        Ana.semantics(self.tree)
 
         
 

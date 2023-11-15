@@ -3,6 +3,10 @@ from tools.LangLexer import LangLexer
 from tools.LangGrammar import LangGrammar
 from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from PyQt6.QtWidgets import QTableWidgetItem
+from .SemanticAna import SemanticAna
+
+# temporário até ter custom
+from antlr4.error.ErrorListener import ErrorListener as ANTLRErrorListener
 
 class Ana:
     def lex(code, table):
@@ -44,9 +48,13 @@ class Ana:
         lexer.addErrorListener(errorListener)
         parser.addErrorListener(errorListener)
         # parse
-        parser.programa()
-        return errorListener.getErrorsAsStr(), errorListener.getErrors()
+        tree = parser.programa()
+        return errorListener.getErrorsAsStr(), errorListener.getErrors(), tree
     
-    def semantics(tokens):
+    def semantics(tree):
         print('començando análise semantica')
+        errorListener = ANTLRErrorListener()
+        semanticAna = SemanticAna(errorListener)
+        semanticAna.visit(tree)
+
 
