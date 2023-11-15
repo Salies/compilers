@@ -33,7 +33,9 @@ class MainWidget(QWidget):
         lexer = CustomizedLexer(self.editor)
         self.editor.setLexer(lexer)
         self.editor.setMarginLineNumbers(1, True)
-        font = QFont("Courier New", 12) # TODO: subsituir
+        font = QFont("Courier New", 10) # TODO: subsituir
+        # callback para atualizar tamanho da margem
+        self.editor.linesChanged.connect(self.qtdLineChanged)
         self.editor.setFont(font)
         lexer.setFont(font)
         # padding
@@ -79,6 +81,13 @@ class MainWidget(QWidget):
         # remove stretch
         centralLayout.setStretch(0, 1)
         self.setLayout(centralLayout)
+
+    def qtdLineChanged(self):
+        # mudar tamanho da margem
+        n_digits = len(str(self.editor.lines()))
+        zeros = "0" * n_digits
+        zeros += "0" # add zero extra
+        self.editor.setMarginWidth(1, zeros)
 
     def setCode(self, code):
         self.editor.setText(code)
