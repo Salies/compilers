@@ -181,7 +181,7 @@ class Mepa:
                 
                 #erro
                 case _:
-                    print("COMANDO DESCONHECIDO")
+                    print(f"COMANDO DESCONHECIDO: {instruction}\n")
                     return
             
             self.instruction_pointer += 1
