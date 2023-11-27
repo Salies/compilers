@@ -101,9 +101,11 @@ class CodeGenerator(LangGrammarVisitor):
     def visitFator(self, ctx: LangGrammar.FatorContext):
         if(ctx.variavel() != None):
             #verificar como pegar a posicao da variavel no stack de dados
-            #num = variavel.pos_in_stack()
-            #self.generated_code.append(f"CRVR {num}")
-            pass
+            variavel = ctx.variavel()
+            nome_variavel = variavel.IDENTIFICADOR().getText()
+            stack_position = self.current_scope.resolve(nome_variavel).pos_stack
+            self.generated_code.append(f"CRVR {stack_position}")
+            # pass
         elif(ctx.numero() != None):
             num = ctx.numero()
             self.generated_code.append(f"CRVL {num}")
@@ -117,23 +119,20 @@ class CodeGenerator(LangGrammarVisitor):
             self.generated_code.append("NEGA")
         
     #TODO
-    def visitFator1(self, ctx: LangGrammar.FatorContext):
-        if(ctx.variavel() != None):
-            #verificar como pegar a posicao da variavel no stack de dados
-            #num = variavel.pos_in_stack()
-            #self.generated_code.append(f"CRVR {num}")
-            pass
-        elif(ctx.numero() != None):
-            num = ctx.numero()
-            self.generated_code.append(f"CRVL {num}")
-        #TODO verificar como representar booleanos na MEPA
-        elif(ctx.CONST_FALSE() != None):
-            self.generated_code.append(f"CRVL 0")
-        elif(ctx.CONST_TRUE() != None):
-            self.generated_code.append("CRVL 1")
-        self.visitChildren(ctx)
-        if(ctx.NOT() != None):
-            self.generated_code.append("NEGA")
+    def visitTermo1(self, ctx: LangGrammar.Termo1Context):
+        #resolve primeiro o fator e depois resolve o termo
+        self.visitChildren(ctx.getChild(0))
+
+        if(ctx.MUL() != None):
+            self.generated_code.append(f"MULT")
+
+        elif(ctx.INT_DIV() != None):
+            self.generated_code.append(f"DIVI")
+
+        elif(ctx.AND() != None):
+            self.generated_code.append(f"CONJ")
+        
+        self.visitChildren(ctx.getChild(1))
 
     def visitComandoRepetitivo1(self, ctx:LangGrammar.ComandoRepetitivo1Context):
         inicio_laco = len(self.generated_code()) - 1
@@ -141,7 +140,8 @@ class CodeGenerator(LangGrammarVisitor):
         #visita a expressao e adiciona um placeholder para indicar o final do bloco de repeticao
         self.visitChildren(ctx.getChild(0))
         instruction_reminder = len(self.generated_code())
-        self.generated_code.append("PLACEHOLDER")
+        #adicionei placeholder ao inves de vazio para debug
+        self.generated_code.append("PLACEHOLDER COMANDO REPETITIVO")
         self.visitChildren(ctx.getChild(1))
         self.generated_code.append(f"DSVS {inicio_laco}")
         self.generated_code[instruction_reminder] = f"DSVF {instruction_reminder}"
@@ -157,15 +157,29 @@ class CodeGenerator(LangGrammarVisitor):
     def visitComandoCondicional(self, ctx: LangGrammar.ComandoCondicionalContext):
         self.visitChildren(ctx.getChild(0))
         instruction_reminder = len(self.generated_code())
-        self.generated_code.append("PLACEHOLDER")
+        self.generated_code.append("PLACEHOLDER COMANDO CONDICIONAL")
+        #armazena todas as instrucoes caso verdadeiro
         self.visitChildren(ctx.getChild(1))
+        #retorna a instrucao placeholder e substituição pelo valor de instrução atual
         self.generated_code[instruction_reminder] = f"DSVF {len(self.generated_code)}"
         self.generated_code.append("NADA")
+
+    def visitChamadaProcedimento(self, ctx: LangGrammar.ChamadaProcedimentoContext):
+        if(ctx.PROC_READ):
+            self.generated_code.append("LEIT")
+        elif(ctx.PROC_WRITE):
+            self.visitChildren(ctx)
+            self.generated_code.append("IMPR")
+        
+
+    def visitChamadaProcedimento1(self, ctx: LangGrammar.ChamadaProcedimento1Context):
+        
+        self.visitChildren(ctx)
 
     def salvarPrograma(self):
         #TODO
         codigo_final = "".join(self.generated_code)
         print(codigo_final)
-        f = open("mepa_code.exe", "w")
+        f = open("mepa_code.mepa", "w")
         f.write(codigo_final)
         f.close()
