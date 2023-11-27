@@ -39,6 +39,7 @@ class CodeGenerator(LangGrammarVisitor):
         self.current_scope: Scope = Scope("global")
         self.errorListener = errorListener
         self.generated_code = []
+        self.historico_variavel = []
 
     def enterScope(self, scope_name: str):
         scope = Scope(scope_name, self.current_scope)
@@ -149,7 +150,8 @@ class CodeGenerator(LangGrammarVisitor):
     def visitAtribuicao(self, ctx: LangGrammar.AtribuicaoContext):
         variavel = ctx.variavel()
         nome_variavel = variavel.IDENTIFICADOR().getText()
-        symbol = self.current_scope.symbols.get(nome_variavel)
+        self.historico_variavel.append(nome_variavel)
+        symbol = self.current_scope.resolve(nome_variavel)
         num = symbol.pos_stack
         self.visitChildren(ctx)
         self.generated_code.append(f"ARMZ {num}")
@@ -167,13 +169,17 @@ class CodeGenerator(LangGrammarVisitor):
     def visitChamadaProcedimento(self, ctx: LangGrammar.ChamadaProcedimentoContext):
         if(ctx.PROC_READ):
             self.generated_code.append("LEIT")
+            for variavel in self.historico_variavel:
+                stack_position = self.current_scope.resolve(variavel).pos_stack
+                self.generated_code.append(f"ARMZ {stack_position}")
+
         elif(ctx.PROC_WRITE):
             self.visitChildren(ctx)
             self.generated_code.append("IMPR")
-        
 
-    def visitChamadaProcedimento1(self, ctx: LangGrammar.ChamadaProcedimento1Context):
-        
+    #lista para leitura de variavel
+    def visitListaExpressao(self, ctx: LangGrammar.ListaExpressaoContext):
+        self.historico_variavel = []
         self.visitChildren(ctx)
 
     def salvarPrograma(self):
