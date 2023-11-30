@@ -4,6 +4,7 @@ from tools.LangGrammar import LangGrammar
 from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
 from PyQt6.QtWidgets import QTableWidgetItem
 from .SemanticAna import SemanticAna
+from MEPA.CodeGenerator import CodeGenerator
 
 # temporário até ter custom
 from antlr4.error.ErrorListener import ErrorListener as ANTLRErrorListener
@@ -59,4 +60,11 @@ class Ana:
         # print errors
         print(errorListener.getErrorsAsStr())
 
+    def generate_code(tree):
+        print('començando geracao codigo')
+        errorListener = ErrorListener()
+        codeGenerator = CodeGenerator(errorListener)
+        codeGenerator.visit(tree)
+        # print errors
+        print(errorListener.getErrorsAsStr())
 
