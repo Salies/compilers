@@ -55,7 +55,7 @@ IDENTIFICADOR: (LETRA)(LETRA|DIGITO)*;
 
 
 INT: [0-9]+;
-REAL: [0-9]+'.'[0-9]+;
+//REAL: [0-9]+'.'[0-9]+;
 
 COMMENT: '//' ~[\r\n]* -> skip;
 MULTILINE_COMMENT: '{' .*? '}' -> skip;

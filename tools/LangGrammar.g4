@@ -1,7 +1,7 @@
 parser grammar LangGrammar;
 options { tokenVocab=LangLexer; }
 
-numero: (INT | REAL);
+numero: (INT/*  | REAL*/);
 
 relacao:
     ( EQUAL | DIFF | LT | LTE | GT | GTE ) ;

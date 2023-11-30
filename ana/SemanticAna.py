@@ -58,6 +58,14 @@ class SemanticAna(LangGrammarVisitor):
         self.visitChildren(ctx)
         self.exitScope()
 
+    # Declaração de variável
+    def visitDeclaracaoVariavel(self, ctx: LangGrammar.DeclaracaoVariavelContext):
+        tipo = ctx.tipo().getText()
+        for variavel in ctx.variavel():
+            nome_variavel = variavel.IDENTIFICADOR().getText()
+            symbol = Symbol(nome_variavel, tipo)
+            self.current_scope.define(symbol)
+
     # Variável não declarada
     # Variáveis só aparecem em dois contextos, além de sua declaração:
     # Atribuição (atribuicao) e fator
