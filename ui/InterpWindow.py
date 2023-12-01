@@ -72,6 +72,8 @@ class InterpWindow(QMainWindow):
 
     def interpret(self):
         print('interpretando código')
+        # limpa output
+        self.outputWidget.setText('')
         # inicia a máquina
         mepa = Mepa(self.inputStr, self.print_to_output, self.input_integer)
         # executa o código
