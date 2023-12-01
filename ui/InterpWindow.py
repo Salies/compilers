@@ -1,4 +1,7 @@
-from PyQt6.QtWidgets import QMainWindow, QDialog, QHBoxLayout, QVBoxLayout, QLabel
+from PyQt6.QtWidgets import (
+    QMainWindow, QWidget, QDialog, QPushButton,
+    QHBoxLayout, QVBoxLayout, QLabel, QTextEdit
+)
 from PyQt6.QtGui import QIcon, QPixmap, QImage, QAction
 from PyQt6.QtCore import Qt
 import os
@@ -11,6 +14,7 @@ class InterpWindow(QMainWindow):
         path = os.path.join(current_dir, "../resources/meepo.png")
         self.setWindowIcon(QIcon(path))
         self.aboutWidget = About()
+        self.setFixedSize(800, 500)
         # menu bar
         self.menuBar = self.menuBar()
         fileMenu = self.menuBar.addMenu("Arquivo")
@@ -25,13 +29,31 @@ class InterpWindow(QMainWindow):
         aboutAction.setShortcut("Ctrl+H")
         aboutAction.triggered.connect(self.about)
         helpMenu.addAction(aboutAction)
+        # criando janela em si
+        mainLayout = QHBoxLayout()
+        self.centralWidget = QWidget()
+        self.centralWidget.setLayout(mainLayout)
+        self.setCentralWidget(self.centralWidget)
+        # criando widgets
+        self.inputWidget = QTextEdit()
+        self.inputWidget.setReadOnly(True)
+        self.outputWidget = QTextEdit()
+        self.outputWidget.setReadOnly(True)
+        # black background
+        self.outputWidget.setStyleSheet("background-color: black; color: white;")
+        outputLayout = QVBoxLayout()
+        outputLayout.addWidget(self.outputWidget)
+        self.interpButton = QPushButton("Interpretar")
+        outputLayout.addWidget(self.interpButton)
+        # adicionando widgets
+        mainLayout.addWidget(self.inputWidget)
+        mainLayout.addLayout(outputLayout)
 
     def openFile(self):
         print('abridno arquivo')
 
     def about(self):
         self.aboutWidget.exec()
-
 
 # safoda poo
 class About(QDialog):
