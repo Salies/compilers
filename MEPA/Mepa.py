@@ -1,8 +1,10 @@
 #interpretador MEPA
 class Mepa:
-    def __init__(self, code_stack):
+    def __init__(self, code_stack, print_callback, input_callback):
         self.code_stack = code_stack
         self.instruction_pointer = 0
+        self.print_callback = print_callback
+        self.input_callback = input_callback
         
     def run_code(self):
         instruction_code = self.code_stack.splitlines()
@@ -152,25 +154,30 @@ class Mepa:
                 
                 #leitura de inteiro
                 case "LEIT":
-                    val = int(input())
+                    #val = int(input())
+                    val = self.input_callback()
                     self.data_stack.append(val)
 
                 #leitura de caractere
                 case "LECH":
+                    # NÃO UTILIZADO
                     val = input()
                     self.data_stack.append(val)
 
                 #impressão de inteiro
                 case "IMPR":
-                    print(int(self.data_stack.pop()))
+                    #print(int(self.data_stack.pop()))
+                    self.print_callback(int(self.data_stack.pop()))
 
                 #impressão de caractere
                 case "IMPC":
-                    print(self.data_stack.pop())
+                    #print(self.data_stack.pop())
+                    self.print_callback(self.data_stack.pop())
 
                 #impressão de nova linha
                 case "IMPE":
-                    print()
+                    #print()
+                    self.print_callback("")
                     
                 #desaloca
                 case "DMEM":
@@ -187,7 +194,8 @@ class Mepa:
                 
                 #erro
                 case _:
-                    print(f"COMANDO DESCONHECIDO: {instruction}\n")
+                    #print(f"COMANDO DESCONHECIDO: {instruction}\n")
+                    self.print_callback(f"COMANDO DESCONHECIDO: {instruction}\n")
                     return
             
             self.instruction_pointer += 1
