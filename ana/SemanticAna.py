@@ -178,6 +178,13 @@ class SemanticAna(LangGrammarVisitor):
             if sub is not None or sum is not None:
                 tipos.append('int')
             termo = expressao_simples.termo()
+            # se termo1 tiver MUL ou INT_DIV, já adiciona o tipo como int
+            if termo is not None:
+                if termo.termo1() is not None:
+                    mul = termo.termo1().MUL()
+                    int_div = termo.termo1().INT_DIV()
+                    if mul is not None or int_div is not None:
+                        tipos.append('int')
             while termo is not None:
                 fator = termo.fator()
                 # fator pode ser: variável, número, booleano ou expressão entre parênteses
