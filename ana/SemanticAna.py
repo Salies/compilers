@@ -60,7 +60,6 @@ class SemanticAna(LangGrammarVisitor):
     # Declaração de variável
     def visitDeclaracaoVariavel(self, ctx: LangGrammar.DeclaracaoVariavelContext):
         tipo = ctx.tipo().getText()
-        print('decVar', tipo)
         lista_id_ctx = ctx.listaIdentificadores()
         while lista_id_ctx.IDENTIFICADOR() is not None:
             nome_variavel = lista_id_ctx.IDENTIFICADOR().getText()
@@ -68,12 +67,10 @@ class SemanticAna(LangGrammarVisitor):
             # verifica se variável já foi declarada no escopo atual
             if self.current_scope.resolve(nome_variavel) is not None:
                 err = f"Variável '{nome_variavel}' já declarada (escopo {self.current_scope.scope_name})."
-                print(err)
                 self.errorListener.addError(err, lista_id_ctx.start.line, lista_id_ctx.start.column)
             # verifica se a variável já foi declarada em um escopo superior
             elif self.current_scope.enclosing_scope is not None and self.current_scope.enclosing_scope.resolve(nome_variavel) is not None:
                 err = f"Variável '{nome_variavel}' já declarada (escopo {self.current_scope.enclosing_scope.scope_name})."
-                print(err)
                 self.errorListener.addError(err, lista_id_ctx.start.line, lista_id_ctx.start.column)
                 # mesmo assim, define para evitar erro de não declaração (afinal, este não é o problema tratado aqui)
                 self.current_scope.define(symbol)
@@ -94,4 +91,15 @@ class SemanticAna(LangGrammarVisitor):
            err = f"Variável '{nome_variavel}' não declarada (escopo {nome_escopo})."
            print(err)
            return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
-        #return self.visitChildren(ctx)
+        return self.visitChildren(ctx)
+
+    def visitFator(self, ctx: LangGrammar.FatorContext):
+        variavel = ctx.variavel()
+        if variavel is not None:
+            nome_variavel = variavel.IDENTIFICADOR().getText()
+            nome_escopo = self.current_scope.scope_name
+            symbol = self.current_scope.resolve(nome_variavel)
+            if symbol is None:
+                err = f"Variável '{nome_variavel}' não declarada (escopo {nome_escopo})."
+                return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
+        return self.visitChildren(ctx)
