@@ -65,7 +65,13 @@ class SemanticAna(LangGrammarVisitor):
         while lista_id_ctx.IDENTIFICADOR() is not None:
             nome_variavel = lista_id_ctx.IDENTIFICADOR().getText()
             symbol = Symbol(nome_variavel, tipo)
-            self.current_scope.define(symbol)
+            # verifica se variável já foi declarada
+            if self.current_scope.resolve(nome_variavel) is not None:
+                err = f"Variável '{nome_variavel}' já declarada (escopo '{self.current_scope.scope_name}')."
+                print(err)
+                self.errorListener.addError(err, lista_id_ctx.start.line, lista_id_ctx.start.column)
+            else:
+                self.current_scope.define(symbol)
             lista_id_ctx = lista_id_ctx.listaIdentificadores1()
 
     # Variável não declarada
@@ -75,9 +81,10 @@ class SemanticAna(LangGrammarVisitor):
         variavel = ctx.variavel()
         assert variavel is not None
         nome_variavel = variavel.IDENTIFICADOR().getText()
+        nome_escopo = self.current_scope.scope_name
         symbol = self.current_scope.resolve(nome_variavel)
         if symbol is None:
-           err = f"Variável '{nome_variavel}' não declarada."
+           err = f"Variável '{nome_variavel}' não declarada (escopo '{nome_escopo}')."
            print(err)
            return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
         #return self.visitChildren(ctx)
