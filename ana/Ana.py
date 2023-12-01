@@ -57,6 +57,7 @@ class Ana:
         errorListener = ErrorListener()
         semanticAna = SemanticAna(errorListener)
         semanticAna.visit(tree)
+        semanticAna.encontrarVarGlobaisNaoUtilizadas()
         # print errors
         print(errorListener.getErrorsAsStr())
 

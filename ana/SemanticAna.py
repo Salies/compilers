@@ -14,13 +14,17 @@ class Scope:
         self.enclosing_scope: Optional[Scope] = enclosing_scope
         self.symbols = {}
         self.symbol_used = {}
+        self.var_decl_pos = {}
 
     def define(self, symbol: Symbol):
         self.symbols[symbol.name] = symbol
-        self.symbol_used[symbol.name] = False
+        self.symbol_used[symbol.name] = (False)
 
     def resolve(self, name: str) -> Optional[Symbol]:
         return self.symbols.get(name)
+    
+    def set_pos(self, name: str, pos: int):
+        self.var_decl_pos[name] = pos
     
 # Objetivos da análise semântica:
 # * Variável ou procedimento não declarado OK
@@ -60,10 +64,12 @@ class SemanticAna(LangGrammarVisitor):
             print('symbol', symbol.name, symbol.type)
             if not self.current_scope.symbol_used[symbol.name]:
                 err = f"Variável '{symbol.name}' declarada, mas não utilizada."
-                self.errorListener.addError(err, -1, -1)
+                x, y = self.current_scope.var_decl_pos[symbol.name]
+                self.errorListener.addError(err, x, y)
 
         if self.current_scope.enclosing_scope is not None:
             self.current_scope = self.current_scope.enclosing_scope
+    
     # A mudança de escopo ocorre quando se entra em um procedimento
     def visitDeclaracaoProcedimento(self, ctx: LangGrammar.DeclaracaoProcedimentoContext):
         nome_procedimento = ctx.IDENTIFICADOR().getText()
@@ -94,8 +100,10 @@ class SemanticAna(LangGrammarVisitor):
                 self.errorListener.addError(err, lista_id_ctx.start.line, lista_id_ctx.start.column)
                 # mesmo assim, define para evitar erro de não declaração (afinal, este não é o problema tratado aqui)
                 self.current_scope.define(symbol)
+                self.current_scope.set_pos(nome_variavel, (lista_id_ctx.start.line, lista_id_ctx.start.column))
             else:
                 self.current_scope.define(symbol)
+                self.current_scope.set_pos(nome_variavel, (lista_id_ctx.start.line, lista_id_ctx.start.column))
             lista_id_ctx = lista_id_ctx.listaIdentificadores1()
 
     # Variável não declarada
@@ -122,12 +130,11 @@ class SemanticAna(LangGrammarVisitor):
         # se qualquer um dos membros da expressão for um número, então o tipo da expressão é int
         # caso contrário, é boolean
         tipo_expressao = self.encontrarTipoExpressao(ctx.expressao())
-
+        #_, tipo_expressao = self.visitExpressao(ctx.expressao())
+        # não era pra precisar, mas reporta tipo incompatível aqui também
         if tipo_expressao == 'mixed':
             err = f"Expressão possui tipos incompatíveis."
-            return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
-
-        #print('tipos:', tipo_variavel, tipo_expressao)
+            self.errorListener.addError(err, ctx.start.line, ctx.start.column)
 
         if tipo_variavel != tipo_expressao:
             err = f"Variável '{nome_variavel}' é do tipo '{tipo_variavel}', mas a expressão é do tipo '{tipo_expressao}'."
@@ -162,6 +169,16 @@ class SemanticAna(LangGrammarVisitor):
                 err = f"Procedimento '{nome_procedimento}' não declarado."
                 return self.errorListener.addError(err, ctx.start.line, ctx.start.column)
         return self.visitChildren(ctx)
+    
+    def visitExpressao(self, ctx: LangGrammar.ExpressaoContext):
+        print('visitando expressao')
+        # verifica tipo da expressão
+        tipo = self.encontrarTipoExpressao(ctx)
+        if tipo == 'mixed':
+            err = f"Expressão possui tipos incompatíveis."
+            self.errorListener.addError(err, ctx.start.line, ctx.start.column)
+
+        return self.visitChildren(ctx), tipo
 
     '''
     fator:
@@ -213,7 +230,19 @@ class SemanticAna(LangGrammarVisitor):
             tipo = 'boolean'
         print('tipo final:', tipo)
         return tipo
+    
+    def encontrarVarGlobaisNaoUtilizadas(self):
+        # pega o escopo global
+        scope = self.current_scope
+        while scope.enclosing_scope is not None:
+            scope = scope.enclosing_scope
+        # verifica se há variáveis não utilizadas
+        for symbol in scope.symbols.values():
+            if symbol.type == 'procedimento':
+                continue
+            if not scope.symbol_used[symbol.name]:
+                err = f"Variável '{symbol.name}' declarada, mas não utilizada."
+                x, y = scope.var_decl_pos[symbol.name]
+                self.errorListener.addError(err, x, y)
 
-# TODO: consertar tipo expressão (fazer função recursiva de descobrir tipo de expressão)
 # TODO: variável não utilizada no escopo global
-# TODO: melhorar variável não utilizada (colocar nome do escopó)
