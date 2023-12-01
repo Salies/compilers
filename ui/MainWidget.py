@@ -46,6 +46,10 @@ class MainWidget(QWidget):
         # botão de limpar
         clearButton = QPushButton("Limpar", self)
         clearButton.clicked.connect(self.clear)
+        # botão de compilar
+        self.compileButton  = QPushButton("Compilar", self)
+        self.compileButton.clicked.connect(self.compile)
+        self.compileButton.setEnabled(False)
         # criando tabela de lexemas
         self.table = QTableWidget(1, 5, self)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
@@ -62,6 +66,8 @@ class MainWidget(QWidget):
         self.semOutput = inputFactory()
         lexLayout.addWidget(self.lexOutput)
         sinLayout.addWidget(self.sinOutput)
+        # variáveis de controle de compilação
+        self.lastValidTree = None
         # adapt tab widget to fit textedit
         self.tabWidget.setFixedHeight(129)
         self.tabWidget.addTab(self.lexOutput, "Erros léxicos")
@@ -73,6 +79,7 @@ class MainWidget(QWidget):
         # buttons layout
         btnsLayout = QVBoxLayout()
         btnsLayout.addStretch()
+        btnsLayout.addWidget(self.compileButton)
         btnsLayout.addWidget(self.button)
         btnsLayout.addWidget(clearButton)
         bottomLayout.addLayout(btnsLayout)
@@ -112,6 +119,20 @@ class MainWidget(QWidget):
         self.tabWidget.setTabText(1, f"Erros sintáticos ({qtd_err_sintax})")
         self.semantics()
 
+    def compile(self):
+        # procura procedure em self.all_tokens
+        found_proc = False
+        for token in self.all_tokens:
+            if token.text == 'procedure':
+                print('achou procedure')
+                found_proc = True
+                break
+        if found_proc:
+            print('não faço')
+            return
+        #Ana.generate_code(self.lastValidTree)
+        print('bora gerar código')
+
     def lex(self):
         # pega texto do editor
         # nota: toPlainText() ainda mantém a quebra de linha, ou seja, sem problemas
@@ -127,7 +148,17 @@ class MainWidget(QWidget):
     def semantics(self):
         if(len(self.sin_errors) != 0 or len(self.lex_errors) != 0):
             return
-        Ana.semantics(self.tree)
+        errorStr, sema_errors = Ana.semantics(self.tree)
+        # output errors
+        self.semOutput.setText(errorStr)
+        qtd_err = len(sema_errors)
+        self.tabWidget.setTabText(2, f"Erros semânticos ({qtd_err})")
+        # se o código passou...
+        if qtd_err != 0:
+            return
+        # habilita para compilação
+        self.compileButton.setEnabled(True)
+        self.lastValidTree = self.tree
 
         
 

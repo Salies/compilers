@@ -58,8 +58,7 @@ class Ana:
         semanticAna = SemanticAna(errorListener)
         semanticAna.visit(tree)
         semanticAna.encontrarVarGlobaisNaoUtilizadas()
-        # print errors
-        print(errorListener.getErrorsAsStr())
+        return errorListener.getErrorsAsStr(), errorListener.getErrors()
 
     def generate_code(tree):
         print('començando geracao codigo')
