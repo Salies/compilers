@@ -65,11 +65,18 @@ class SemanticAna(LangGrammarVisitor):
         while lista_id_ctx.IDENTIFICADOR() is not None:
             nome_variavel = lista_id_ctx.IDENTIFICADOR().getText()
             symbol = Symbol(nome_variavel, tipo)
-            # verifica se variável já foi declarada
+            # verifica se variável já foi declarada no escopo atual
             if self.current_scope.resolve(nome_variavel) is not None:
-                err = f"Variável '{nome_variavel}' já declarada (escopo '{self.current_scope.scope_name}')."
+                err = f"Variável '{nome_variavel}' já declarada (escopo {self.current_scope.scope_name})."
                 print(err)
                 self.errorListener.addError(err, lista_id_ctx.start.line, lista_id_ctx.start.column)
+            # verifica se a variável já foi declarada em um escopo superior
+            elif self.current_scope.enclosing_scope is not None and self.current_scope.enclosing_scope.resolve(nome_variavel) is not None:
+                err = f"Variável '{nome_variavel}' já declarada (escopo {self.current_scope.enclosing_scope.scope_name})."
+                print(err)
+                self.errorListener.addError(err, lista_id_ctx.start.line, lista_id_ctx.start.column)
+                # mesmo assim, define para evitar erro de não declaração (afinal, este não é o problema tratado aqui)
+                self.current_scope.define(symbol)
             else:
                 self.current_scope.define(symbol)
             lista_id_ctx = lista_id_ctx.listaIdentificadores1()
@@ -84,7 +91,7 @@ class SemanticAna(LangGrammarVisitor):
         nome_escopo = self.current_scope.scope_name
         symbol = self.current_scope.resolve(nome_variavel)
         if symbol is None:
-           err = f"Variável '{nome_variavel}' não declarada (escopo '{nome_escopo}')."
+           err = f"Variável '{nome_variavel}' não declarada (escopo {nome_escopo})."
            print(err)
            return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
         #return self.visitChildren(ctx)
