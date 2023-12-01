@@ -32,10 +32,10 @@ class Scope:
 # * Incompatibilidade de parâmetros formais e reais: número, ordem e tipo
 # * Uso de variáveis variáveis de escopo inadequado - SEMI-OK (eu não fiz isso, mas sempre informo o escopo)
 # * Atribuição de um inteiro a um booleano OK
-# * Divisão que não é entre números inteiros
+# * Divisão que não é entre números inteiros OK
 # ^ impossível de acontecer, pois só há inteiros, mas eu entendi o que ele quis dizer
 # ^ na vdd é verificar operação entre inteiros e booleanos
-# * Variável declarada e nunca utilizada
+# * Variável declarada e nunca utilizada OK
 # * Read e write com variáveis de tipo diferentes ??? Não entendi
 # * Tratamento de escopo
 #   - Erro: variável local a um procedimento utilizada no programa principal
@@ -244,5 +244,3 @@ class SemanticAna(LangGrammarVisitor):
                 err = f"Variável '{symbol.name}' declarada, mas não utilizada."
                 x, y = scope.var_decl_pos[symbol.name]
                 self.errorListener.addError(err, x, y)
-
-# TODO: variável não utilizada no escopo global

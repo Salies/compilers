@@ -3,8 +3,10 @@
 # Daniel Serezane e Gabriel Nozawa
 # Janela principal da UI
 
-from PyQt6.QtWidgets import QMainWindow, QWidget, QFileDialog, QTabWidget, QVBoxLayout
-from PyQt6.QtGui import QAction
+import os
+from PyQt6.QtWidgets import QMainWindow, QWidget, QFileDialog, QLabel, QVBoxLayout, QHBoxLayout, QDialog
+from PyQt6.QtGui import QAction, QPixmap, QImage
+from PyQt6.QtCore import Qt
 from ui.MainWidget import MainWidget
 
 class MainWindow(QMainWindow):
@@ -21,6 +23,8 @@ class MainWindow(QMainWindow):
         # criando menu bar
         self.menuBar = self.menuBar()
         fileMenu = self.menuBar.addMenu("Arquivo")
+        toolsMenu = self.menuBar.addMenu("Ferramentas")
+        helpMenu = self.menuBar.addMenu("Ajuda")
         # criando actions: fileMenu
         # Abrir
         openAction = QAction("Abrir", self)
@@ -37,6 +41,21 @@ class MainWindow(QMainWindow):
         exitAction.setShortcut("Ctrl+Q")
         exitAction.triggered.connect(self.close)
         fileMenu.addAction(exitAction)
+        # criando actions: toolsMenu
+        # Interpretador
+        interpreterAction = QAction("Interpretador", self)
+        interpreterAction.setShortcut("Ctrl+I")
+        interpreterAction.triggered.connect(self.openInterpreter)
+        toolsMenu.addAction(interpreterAction)
+        # criando actions: helpMenu
+        # Sobre
+        aboutAction = QAction("Sobre", self)
+        aboutAction.setShortcut("Ctrl+H")
+        aboutAction.triggered.connect(self.about)
+        helpMenu.addAction(aboutAction)
+        # Montando o widget de Sobre
+        self.aboutWidget = About()
+        # Montando o widget de Interpretador
         # Criando abas (tab widget)
         self.mainWidget = MainWidget()
         centralLayout.addWidget(self.mainWidget)
@@ -62,3 +81,44 @@ class MainWindow(QMainWindow):
 
     def close(self):
         super().close()
+
+    # Interpretação de código
+    def openInterpreter(self):
+        print("Abrindo interpretador")
+
+    # Sobre
+    def about(self):
+        self.aboutWidget.exec()
+
+
+class About(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setFixedSize(350, 140)
+        self.setWindowTitle("Sobre")
+        aboutLayout = QHBoxLayout()
+        self.setLayout(aboutLayout)
+        # Criando labels
+        textLayout = QVBoxLayout()
+        text = "<b>Daniel Serezane</b> e <b>Gabriel Nozawa</b>"
+        text += "<br>orgulhosamente apresentam:"
+        text += "<br><b>Projeto de Compiladores v6.6.6.1</b>"
+        text += "<br>FCT/UNESP, 2023"
+        titleLabel = QLabel(text)
+        titleLabel.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        textLayout.addWidget(titleLabel)
+        # Imagem
+        imgLayout = QVBoxLayout()
+        imageLabel = QLabel()
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        path = os.path.join(current_dir, "../resources/dragao.png")
+        img = QImage(path)
+        pixmap = QPixmap.fromImage(img)
+        imageLabel.setPixmap(pixmap)
+        imgLayout.addWidget(imageLabel)
+        imgLayout.addStretch()
+        
+        aboutLayout.addLayout(imgLayout)
+        aboutLayout.addLayout(textLayout)
+
+        self.hide()
