@@ -26,14 +26,20 @@ class Mepa:
                 case "CRCT":
                     self.data_stack.append(instruction_value)
 
+                #carrega variavel
+                case "CRVR":
+                    loaded_value = self.data_stack[instruction_value]
+                    self.data_stack.append(loaded_value)
+
                 #carrega valor
                 case "CRVL":
-                    loaded_value = self.data_stack[instruction_value]
+                    loaded_value = instruction_value
                     self.data_stack.append(loaded_value)
 
                 #armazena na memória
                 case "ARMZ":
-                    self.data_stack[instruction_value] = (self.data_stack.pop())
+                    val = self.data_stack.pop()
+                    self.data_stack[instruction_value] = (val)
 
                 #soma valores carregados
                 case "SOMA":
@@ -42,7 +48,7 @@ class Mepa:
                     self.data_stack.append(val1 + val2)
 
                 #subtrai valores carregados
-                case "SUB":
+                case "SUBT":
                     val2 = self.data_stack.pop()
                     val1 = self.data_stack.pop()
                     self.data_stack.append(val1 - val2)
@@ -100,37 +106,37 @@ class Mepa:
                 case "CMME":
                     val2 = self.data_stack.pop()
                     val1 = self.data_stack.pop()
-                    self.data_stack.append(val1 < val2)
+                    self.data_stack.append(1 if val1 < val2 else 0)
 
                 #compara se maior
                 case "CMMA":
                     val2 = self.data_stack.pop()
                     val1 = self.data_stack.pop()
-                    self.data_stack.append(val1 > val2)
+                    self.data_stack.append(1 if val1 > val2 else 0)
                     
                 #compara se igual
                 case "CMIG":
                     val2 = self.data_stack.pop()
                     val1 = self.data_stack.pop()
-                    self.data_stack.append(val1 == val2)
+                    self.data_stack.append(1 if val1 == val2 else 0)
                     
                 #compara se desigual
                 case "CMDG":
                     val2 = self.data_stack.pop()
                     val1 = self.data_stack.pop()
-                    self.data_stack.append(val1 != val2)
+                    self.data_stack.append(1 if val1 != val2 else 0)
                     
                 #compara se menor igual
                 case "CMEG":
                     val2 = self.data_stack.pop()
                     val1 = self.data_stack.pop()
-                    self.data_stack.append(val1 <= val2)
+                    self.data_stack.append(1 if val1 <= val2 else 0)
 
                 #compara se maior igual
                 case "CMAG":
                     val2 = self.data_stack.pop()
                     val1 = self.data_stack.pop()
-                    self.data_stack.append(val1 >= val2)
+                    self.data_stack.append(1 if val1 >= val2 else 0)
 
                 #FIM AVISO
                 #############################################################
