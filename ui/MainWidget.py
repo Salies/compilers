@@ -6,7 +6,7 @@
 from PyQt6.QtWidgets import (
     QTextEdit, QWidget, QHBoxLayout, 
     QVBoxLayout, QTableWidget, QHeaderView, 
-    QPushButton, QTabWidget
+    QPushButton, QTabWidget, QMessageBox
 )
 from PyQt6.QtGui import QFont
 from PyQt6.Qsci import *
@@ -108,6 +108,14 @@ class MainWidget(QWidget):
         self.table.setRowCount(0)
         self.lexOutput.clear()
         self.sinOutput.clear()
+
+    def showProcedureError(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Erro de compilação")
+        msg.setText("A geração de código não suporta procedures.")
+        msg.setIcon(QMessageBox.Icon.Critical)
+        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
+        msg.exec()
     
     def analyze(self):
         self.lex()
@@ -124,11 +132,10 @@ class MainWidget(QWidget):
         found_proc = False
         for token in self.all_tokens:
             if token.text == 'procedure':
-                print('achou procedure')
                 found_proc = True
                 break
         if found_proc:
-            print('não faço')
+            self.showProcedureError()
             return
         #Ana.generate_code(self.lastValidTree)
         print('bora gerar código')
