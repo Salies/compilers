@@ -21,7 +21,7 @@ class Scope:
         return self.symbols.get(name)
     
 # Objetivos da análise semântica:
-# * Variável ou procedimento não declarado
+# * Variável ou procedimento não declarado OK
 # * Variável ou procedimento declarado mais de uma vez
 # * Incompatibilidade de parâmetros formais e reais: número, ordeme tipo
 # * Uso de variáveis variáveis de escopo inadequado
@@ -31,6 +31,9 @@ class Scope:
 # * Read e write com variáveis de tipo diferentes
 # * Tratamento de escopo
 #   - Erro: variável local a um procedimento utilizada no programa principal
+# * Extra: uso errado de procedimentos (chamada sem argumentos, chamada com argumentos a mais, etc)
+
+# LEMBRETE: DO JEITO QUE ESTÁ, VARIÁVEIS E PROCEDIMENTOS PODEM TER O MESMO NOME
 
 # Esta classe herda e sobrescreve o visitor do ANTLR para fazer a análise semântica
 class SemanticAna(LangGrammarVisitor):
@@ -41,18 +44,24 @@ class SemanticAna(LangGrammarVisitor):
 
 
     def enterScope(self, scope_name: str):
-        print('entrei no escopo', scope_name    )
+        #print('entrei no escopo', scope_name)
         scope = Scope(scope_name, self.current_scope)
         self.current_scope = scope
 
     def exitScope(self):
-        print('sai do escopo')
+        #print('sai do escopo')
         if self.current_scope.enclosing_scope is not None:
             self.current_scope = self.current_scope.enclosing_scope
 
     # A mudança de escopo ocorre quando se entra em um procedimento
     def visitDeclaracaoProcedimento(self, ctx: LangGrammar.DeclaracaoProcedimentoContext):
         nome_procedimento = ctx.IDENTIFICADOR().getText()
+        # verifica se procedimento já foi declarado no escopo atual
+        if self.current_scope.resolve(nome_procedimento) is not None:
+            err = f"Procedimento '{nome_procedimento}' já declarado."
+            self.errorListener.addError(err, ctx.start.line, ctx.start.column)
+            # não vou dar return aqui... espero que não bugue por causa dos nomes
+        self.current_scope.define(Symbol(nome_procedimento, "procedimento"))
         self.enterScope(nome_procedimento)
         self.visitChildren(ctx)
         self.exitScope()
@@ -89,7 +98,6 @@ class SemanticAna(LangGrammarVisitor):
         symbol = self.current_scope.resolve(nome_variavel)
         if symbol is None:
            err = f"Variável '{nome_variavel}' não declarada (escopo {nome_escopo})."
-           print(err)
            return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
         return self.visitChildren(ctx)
 
@@ -102,4 +110,15 @@ class SemanticAna(LangGrammarVisitor):
             if symbol is None:
                 err = f"Variável '{nome_variavel}' não declarada (escopo {nome_escopo})."
                 return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
+        return self.visitChildren(ctx)
+    
+    # Procedimento não declarado
+    def visitChamadaProcedimento(self, ctx: LangGrammar.ChamadaProcedimentoContext):
+        if ctx.IDENTIFICADOR() is not None:
+            nome_procedimento = ctx.IDENTIFICADOR().getText()
+            print(nome_procedimento)
+            symbol = self.current_scope.resolve(nome_procedimento)
+            if symbol is None:
+                err = f"Procedimento '{nome_procedimento}' não declarado."
+                return self.errorListener.addError(err, ctx.start.line, ctx.start.column)
         return self.visitChildren(ctx)
