@@ -142,6 +142,9 @@ class SemanticAna(LangGrammarVisitor):
             self.errorListener.addError(err, ctx.start.line, ctx.start.column)
 
         if tipo_variavel != tipo_expressao:
+            if tipo_variavel == 'procedimento':
+                err = f"Tentativa de atribuição de valor a procedimento '{nome_variavel}'."
+                return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
             err = f"Variável '{nome_variavel}' é do tipo '{tipo_variavel}', mas a expressão é do tipo '{tipo_expressao}'."
             return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
         
