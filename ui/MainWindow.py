@@ -8,6 +8,7 @@ from PyQt6.QtWidgets import QMainWindow, QWidget, QFileDialog, QLabel, QVBoxLayo
 from PyQt6.QtGui import QAction, QPixmap, QImage
 from PyQt6.QtCore import Qt
 from ui.MainWidget import MainWidget
+from ui.InterpWindow import InterpWindow
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -55,6 +56,7 @@ class MainWindow(QMainWindow):
         helpMenu.addAction(aboutAction)
         # Montando o widget de Sobre
         self.aboutWidget = About()
+        self.interpWindow = InterpWindow()
         # Montando o widget de Interpretador
         # Criando abas (tab widget)
         self.mainWidget = MainWidget()
@@ -85,6 +87,7 @@ class MainWindow(QMainWindow):
     # Interpretação de código
     def openInterpreter(self):
         print("Abrindo interpretador")
+        self.interpWindow.show()
 
     # Sobre
     def about(self):
