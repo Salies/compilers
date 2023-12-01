@@ -121,32 +121,9 @@ class SemanticAna(LangGrammarVisitor):
         # como só há int e boolean, aqui usaremos uma lógica bem simples:
         # se qualquer um dos membros da expressão for um número, então o tipo da expressão é int
         # caso contrário, é boolean
-        tipo_expressao = 'boolean'
+        tipo_expressao = self.encontrarTipoExpressao(ctx.expressao())
 
-        # outra coisa importante: uma expressão pode conter sub-expressões
-        # enfim, tá aí o "detector de tipo"
-        # não é a melhor coisa do mundo, mas tá funcionando, pelo visto
-        expressao_simples = ctx.expressao().expressaoSimples()
-        while expressao_simples is not None:
-            termo = expressao_simples.termo()
-            while termo is not None:
-                fator = termo.fator()
-                if fator is not None:
-                    if fator.numero() is not None:
-                        tipo_expressao = 'int'
-                    elif fator.variavel() is not None:
-                        # tenta achar a variável: em pascal a declaração sempre vem antes da atribuição
-                        # então se ela não está aqui, é porque não foi declarada, e isso já foi tratado
-                        nome_variavel = fator.variavel().IDENTIFICADOR().getText()
-                        symbol = self.current_scope.resolve(nome_variavel)
-                        assert symbol is not None
-                        tipo_variavel = symbol.type
-                        if tipo_variavel == 'int':
-                            tipo_expressao = 'int'
-                termo = termo.termo1()
-            expressao_simples = expressao_simples.expressaoSimples1()
-
-        #print('tipos:', tipo_variavel, tipo_expressao)
+        print('tipos:', tipo_variavel, tipo_expressao)
 
         if tipo_variavel != tipo_expressao:
             err = f"Variável '{nome_variavel}' é do tipo '{tipo_variavel}', mas a expressão é do tipo '{tipo_expressao}'."
@@ -181,29 +158,38 @@ class SemanticAna(LangGrammarVisitor):
                 err = f"Procedimento '{nome_procedimento}' não declarado."
                 return self.errorListener.addError(err, ctx.start.line, ctx.start.column)
         return self.visitChildren(ctx)
-    
-    # Verificação expressões de tipo misto (para não permitir)
-    # Também proibindo operações aritméticas com booleanos
-    def visitExpressaoSimples(self, ctx: LangGrammar.ExpressaoSimplesContext):
-        # antes de tudo, descobrimos o tipo do primeiro fator
-        tipo_fator = ''
-        termo = ctx.termo()
-        assert termo is not None
-        fator = termo.fator()
-        assert fator is not None
-        if fator.numero() is not None:
-            tipo_fator = 'int'
-        elif fator.variavel() is not None:
-            nome_variavel = fator.variavel().IDENTIFICADOR().getText()
-            symbol = self.current_scope.resolve(nome_variavel)
-            assert symbol is not None
-            tipo_fator = symbol.type
-        '''tipo_expr = ''
-        # se tiver SUB or SUM, então é int
-        if ctx.SUB() is not None or ctx.SUM() is not None:
-            tipo_expr = 'int'
-        # caso contrário, vamos olhar o primeiro fator pra saber
-        else:'''
+
+    '''
+    fator:
+        ( variavel | numero | ( LP expressao RP ) | ( NOT fator ) | CONST_TRUE | CONST_FALSE ) ;
+    '''
+
+    def encontrarTipoExpressao(self, expressao):
+        tipo = 'boolean'
+        expressao_simples = expressao.expressaoSimples()
+        while expressao_simples is not None:
+            termo = expressao_simples.termo()
+            while termo is not None:
+                fator = termo.fator()
+                # fator pode ser: variável, número, booleano ou expressão entre parênteses
+                if fator is not None:
+                    if fator.numero() is not None:
+                        tipo = 'int'
+                    elif fator.variavel() is not None:
+                        # tenta achar a variável: em pascal a declaração sempre vem antes da atribuição
+                        # então se ela não está aqui, é porque não foi declarada, e isso já foi tratado
+                        nome_variavel = fator.variavel().IDENTIFICADOR().getText()
+                        symbol = self.current_scope.resolve(nome_variavel)
+                        assert symbol is not None
+                        tipo_variavel = symbol.type
+                        if tipo_variavel == 'int':
+                            tipo = 'int'
+                    elif fator.expressao() is not None:
+                        tipo = self.encontrarTipoExpressao(fator.expressao())
+                termo = termo.termo1()
+            expressao_simples = expressao_simples.expressaoSimples1()
+        return tipo
 
 # TODO: consertar tipo expressão (fazer função recursiva de descobrir tipo de expressão)
 # TODO: variável não utilizada no escopo global
+# TODO: melhorar variável não utilizada (colocar nome do escopó)
