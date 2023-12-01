@@ -14,8 +14,7 @@ begin
 	a:=2;
 	b:=10;
 	c:=11;
-	a:=b+c;
-	proc1;
+	a:=b+c;
 	d:=true;
 	e:=false;
 	f:=true;

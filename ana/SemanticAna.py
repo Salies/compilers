@@ -22,9 +22,9 @@ class Scope:
     
 # Objetivos da análise semântica:
 # * Variável ou procedimento não declarado OK
-# * Variável ou procedimento declarado mais de uma vez
-# * Incompatibilidade de parâmetros formais e reais: número, ordeme tipo
-# * Uso de variáveis variáveis de escopo inadequado
+# * Variável ou procedimento declarado mais de uma vez OK
+# * Incompatibilidade de parâmetros formais e reais: número, ordem e tipo
+# * Uso de variáveis variáveis de escopo inadequado - SEMI-OK (eu não fiz isso, mas sempre informo o escopo)
 # * Atribuição de um inteiro a um booleano
 # * Divisão que não é entre números inteiros
 # * Variável declarada e nunca utilizada
@@ -32,6 +32,7 @@ class Scope:
 # * Tratamento de escopo
 #   - Erro: variável local a um procedimento utilizada no programa principal
 # * Extra: uso errado de procedimentos (chamada sem argumentos, chamada com argumentos a mais, etc)
+# ^ sobre isso, acho que está incluso em "ordem", em "ordem e tipo"
 
 # LEMBRETE: DO JEITO QUE ESTÁ, VARIÁVEIS E PROCEDIMENTOS PODEM TER O MESMO NOME
 
@@ -99,6 +100,48 @@ class SemanticAna(LangGrammarVisitor):
         if symbol is None:
            err = f"Variável '{nome_variavel}' não declarada (escopo {nome_escopo})."
            return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
+        
+        # Verificação de incompatibilidade de tipos
+        # primeiramente, pega o tipo da variável
+        tipo_variavel = symbol.type
+        print('att - tipo da variável:', tipo_variavel)
+        # agora verifica o tipo atribuído na expressão...
+        # lembrando que aqui já passou por análise léxica e sintática, então a expressão é válida
+
+        # como só há int e boolean, aqui usaremos uma lógica bem simples:
+        # se qualquer um dos membros da expressão for um número, então o tipo da expressão é int
+        # caso contrário, é boolean
+        tipo_expressao = 'boolean'
+
+        # outra coisa importante: uma expressão pode conter sub-expressões
+        # enfim, tá aí o "detector de tipo"
+        # não é a melhor coisa do mundo, mas tá funcionando, pelo visto
+        expressao_simples = ctx.expressao().expressaoSimples()
+        while expressao_simples is not None:
+            termo = expressao_simples.termo()
+            while termo is not None:
+                fator = termo.fator()
+                if fator is not None:
+                    if fator.numero() is not None:
+                        tipo_expressao = 'int'
+                    elif fator.variavel() is not None:
+                        # tenta achar a variável: em pascal a declaração sempre vem antes da atribuição
+                        # então se ela não está aqui, é porque não foi declarada, e isso já foi tratado
+                        nome_variavel = fator.variavel().IDENTIFICADOR().getText()
+                        symbol = self.current_scope.resolve(nome_variavel)
+                        assert symbol is not None
+                        tipo_variavel = symbol.type
+                        if tipo_variavel == 'int':
+                            tipo_expressao = 'int'
+                termo = termo.termo1()
+            expressao_simples = expressao_simples.expressaoSimples1()
+
+        print('tipos:', tipo_variavel, tipo_expressao)
+
+        if tipo_variavel != tipo_expressao:
+            err = f"Variável '{nome_variavel}' é do tipo '{tipo_variavel}', mas a expressão é do tipo '{tipo_expressao}'."
+            return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
+
         return self.visitChildren(ctx)
 
     def visitFator(self, ctx: LangGrammar.FatorContext):
