@@ -45,7 +45,6 @@ class SemanticAna(LangGrammarVisitor):
         scope = Scope(scope_name, self.current_scope)
         self.current_scope = scope
 
-
     def exitScope(self):
         print('sai do escopo')
         if self.current_scope.enclosing_scope is not None:
