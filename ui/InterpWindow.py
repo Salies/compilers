@@ -110,6 +110,9 @@ class About(QDialog):
         super().__init__()
         self.setFixedSize(350, 140)
         self.setWindowTitle("Sobre")
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        path = os.path.join(current_dir, "../resources/meepo.png")
+        self.setWindowIcon(QIcon(path))
         aboutLayout = QHBoxLayout()
         self.setLayout(aboutLayout)
         # Criando labels
@@ -124,7 +127,6 @@ class About(QDialog):
         # Imagem
         imgLayout = QVBoxLayout()
         imageLabel = QLabel()
-        current_dir = os.path.dirname(os.path.realpath(__file__))
         path = os.path.join(current_dir, "../resources/mee2.png")
         img = QImage(path)
         pixmap = QPixmap.fromImage(img)
