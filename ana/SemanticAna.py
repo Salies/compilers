@@ -13,9 +13,11 @@ class Scope:
         self.scope_name = scope_name
         self.enclosing_scope: Optional[Scope] = enclosing_scope
         self.symbols = {}
+        self.symbol_used = {}
 
     def define(self, symbol: Symbol):
         self.symbols[symbol.name] = symbol
+        self.symbol_used[symbol.name] = False
 
     def resolve(self, name: str) -> Optional[Symbol]:
         return self.symbols.get(name)
@@ -25,10 +27,12 @@ class Scope:
 # * Variável ou procedimento declarado mais de uma vez OK
 # * Incompatibilidade de parâmetros formais e reais: número, ordem e tipo
 # * Uso de variáveis variáveis de escopo inadequado - SEMI-OK (eu não fiz isso, mas sempre informo o escopo)
-# * Atribuição de um inteiro a um booleano
+# * Atribuição de um inteiro a um booleano OK
 # * Divisão que não é entre números inteiros
+# ^ impossível de acontecer, pois só há inteiros, mas eu entendi o que ele quis dizer
+# ^ na vdd é verificar operação entre inteiros e booleanos
 # * Variável declarada e nunca utilizada
-# * Read e write com variáveis de tipo diferentes
+# * Read e write com variáveis de tipo diferentes ??? Não entendi
 # * Tratamento de escopo
 #   - Erro: variável local a um procedimento utilizada no programa principal
 # * Extra: uso errado de procedimentos (chamada sem argumentos, chamada com argumentos a mais, etc)
@@ -50,10 +54,16 @@ class SemanticAna(LangGrammarVisitor):
         self.current_scope = scope
 
     def exitScope(self):
-        #print('sai do escopo')
+        print('sai do escopo')
+        # verifica se há variáveis não utilizadas
+        for symbol in self.current_scope.symbols.values():
+            print('symbol', symbol.name, symbol.type)
+            if not self.current_scope.symbol_used[symbol.name]:
+                err = f"Variável '{symbol.name}' declarada, mas não utilizada."
+                self.errorListener.addError(err, -1, -1)
+
         if self.current_scope.enclosing_scope is not None:
             self.current_scope = self.current_scope.enclosing_scope
-
     # A mudança de escopo ocorre quando se entra em um procedimento
     def visitDeclaracaoProcedimento(self, ctx: LangGrammar.DeclaracaoProcedimentoContext):
         nome_procedimento = ctx.IDENTIFICADOR().getText()
@@ -104,7 +114,7 @@ class SemanticAna(LangGrammarVisitor):
         # Verificação de incompatibilidade de tipos
         # primeiramente, pega o tipo da variável
         tipo_variavel = symbol.type
-        print('att - tipo da variável:', tipo_variavel)
+        #print('att - tipo da variável:', tipo_variavel)
         # agora verifica o tipo atribuído na expressão...
         # lembrando que aqui já passou por análise léxica e sintática, então a expressão é válida
 
@@ -136,11 +146,14 @@ class SemanticAna(LangGrammarVisitor):
                 termo = termo.termo1()
             expressao_simples = expressao_simples.expressaoSimples1()
 
-        print('tipos:', tipo_variavel, tipo_expressao)
+        #print('tipos:', tipo_variavel, tipo_expressao)
 
         if tipo_variavel != tipo_expressao:
             err = f"Variável '{nome_variavel}' é do tipo '{tipo_variavel}', mas a expressão é do tipo '{tipo_expressao}'."
             return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
+        
+        # se tudo estiver ok, define o símbolo como usado
+        self.current_scope.symbol_used[nome_variavel] = True
 
         return self.visitChildren(ctx)
 
@@ -153,6 +166,9 @@ class SemanticAna(LangGrammarVisitor):
             if symbol is None:
                 err = f"Variável '{nome_variavel}' não declarada (escopo {nome_escopo})."
                 return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
+            
+            # se tudo estiver ok, define o símbolo como usado
+            self.current_scope.symbol_used[nome_variavel] = True
         return self.visitChildren(ctx)
     
     # Procedimento não declarado
@@ -165,3 +181,29 @@ class SemanticAna(LangGrammarVisitor):
                 err = f"Procedimento '{nome_procedimento}' não declarado."
                 return self.errorListener.addError(err, ctx.start.line, ctx.start.column)
         return self.visitChildren(ctx)
+    
+    # Verificação expressões de tipo misto (para não permitir)
+    # Também proibindo operações aritméticas com booleanos
+    def visitExpressaoSimples(self, ctx: LangGrammar.ExpressaoSimplesContext):
+        # antes de tudo, descobrimos o tipo do primeiro fator
+        tipo_fator = ''
+        termo = ctx.termo()
+        assert termo is not None
+        fator = termo.fator()
+        assert fator is not None
+        if fator.numero() is not None:
+            tipo_fator = 'int'
+        elif fator.variavel() is not None:
+            nome_variavel = fator.variavel().IDENTIFICADOR().getText()
+            symbol = self.current_scope.resolve(nome_variavel)
+            assert symbol is not None
+            tipo_fator = symbol.type
+        '''tipo_expr = ''
+        # se tiver SUB or SUM, então é int
+        if ctx.SUB() is not None or ctx.SUM() is not None:
+            tipo_expr = 'int'
+        # caso contrário, vamos olhar o primeiro fator pra saber
+        else:'''
+
+# TODO: consertar tipo expressão (fazer função recursiva de descobrir tipo de expressão)
+# TODO: variável não utilizada no escopo global
