@@ -60,10 +60,13 @@ class SemanticAna(LangGrammarVisitor):
     # Declaração de variável
     def visitDeclaracaoVariavel(self, ctx: LangGrammar.DeclaracaoVariavelContext):
         tipo = ctx.tipo().getText()
-        for variavel in ctx.variavel():
-            nome_variavel = variavel.IDENTIFICADOR().getText()
+        print('decVar', tipo)
+        lista_id_ctx = ctx.listaIdentificadores()
+        while lista_id_ctx.IDENTIFICADOR() is not None:
+            nome_variavel = lista_id_ctx.IDENTIFICADOR().getText()
             symbol = Symbol(nome_variavel, tipo)
             self.current_scope.define(symbol)
+            lista_id_ctx = lista_id_ctx.listaIdentificadores1()
 
     # Variável não declarada
     # Variáveis só aparecem em dois contextos, além de sua declaração:

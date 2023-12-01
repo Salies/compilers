@@ -1,6 +1,5 @@
 from __future__ import annotations
 from typing import Optional
-from LangGrammar import LangGrammar
 from tools.LangGrammar import LangGrammar
 from tools.LangGrammarVisitor import LangGrammarVisitor
 
