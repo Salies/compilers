@@ -59,7 +59,7 @@ class Mepa:
                 case "MULT":
                     val2 = self.data_stack.pop()
                     val1 = self.data_stack.pop()
-                    self.data_stack.append(val1 + val2)
+                    self.data_stack.append(val1 * val2)
 
                 #############################################################
                 # AVISO WARNING LEMBRAR REMINDER NAO ESQUECER 
