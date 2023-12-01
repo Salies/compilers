@@ -15,6 +15,7 @@ class Scope:
         self.symbols = {}
         self.symbol_used = {}
         self.var_decl_pos = {}
+        self.procedure_signatures = {}
 
     def define(self, symbol: Symbol):
         self.symbols[symbol.name] = symbol
@@ -51,7 +52,6 @@ class SemanticAna(LangGrammarVisitor):
         self.current_scope: Scope = Scope("global")
         self.errorListener = errorListener
 
-
     def enterScope(self, scope_name: str):
         #print('entrei no escopo', scope_name)
         scope = Scope(scope_name, self.current_scope)
@@ -69,13 +69,18 @@ class SemanticAna(LangGrammarVisitor):
 
         if self.current_scope.enclosing_scope is not None:
             self.current_scope = self.current_scope.enclosing_scope
+
+    def check_type(self, type):
+        if type == 'int' or type == 'boolean':
+            return 'variável'
+        return 'procedimento'
     
     # A mudança de escopo ocorre quando se entra em um procedimento
     def visitDeclaracaoProcedimento(self, ctx: LangGrammar.DeclaracaoProcedimentoContext):
         nome_procedimento = ctx.IDENTIFICADOR().getText()
         # verifica se procedimento já foi declarado no escopo atual
         if self.current_scope.resolve(nome_procedimento) is not None:
-            err = f"Procedimento '{nome_procedimento}' já declarado."
+            err = f"Símbolo '{nome_procedimento}' já declarado (escopo {self.current_scope.scope_name}), como {self.check_type(self.current_scope.resolve(nome_procedimento).type)}."
             self.errorListener.addError(err, ctx.start.line, ctx.start.column)
             # não vou dar return aqui... espero que não bugue por causa dos nomes
         self.current_scope.define(Symbol(nome_procedimento, "procedimento"))
@@ -92,11 +97,11 @@ class SemanticAna(LangGrammarVisitor):
             symbol = Symbol(nome_variavel, tipo)
             # verifica se variável já foi declarada no escopo atual
             if self.current_scope.resolve(nome_variavel) is not None:
-                err = f"Variável '{nome_variavel}' já declarada (escopo {self.current_scope.scope_name})."
+                err = f"Símbolo '{nome_variavel}' já declarado (escopo {self.current_scope.scope_name}), como {self.check_type(self.current_scope.resolve(nome_variavel).type)}."
                 self.errorListener.addError(err, lista_id_ctx.start.line, lista_id_ctx.start.column)
             # verifica se a variável já foi declarada em um escopo superior
             elif self.current_scope.enclosing_scope is not None and self.current_scope.enclosing_scope.resolve(nome_variavel) is not None:
-                err = f"Variável '{nome_variavel}' já declarada (escopo {self.current_scope.enclosing_scope.scope_name})."
+                err = f"Símbolo '{nome_variavel}' já declarado (escopo {self.current_scope.enclosing_scope.scope_name}), como {self.check_type(self.current_scope.enclosing_scope.resolve(nome_variavel).type)}."
                 self.errorListener.addError(err, lista_id_ctx.start.line, lista_id_ctx.start.column)
                 # mesmo assim, define para evitar erro de não declaração (afinal, este não é o problema tratado aqui)
                 self.current_scope.define(symbol)
@@ -168,6 +173,7 @@ class SemanticAna(LangGrammarVisitor):
             if symbol is None:
                 err = f"Procedimento '{nome_procedimento}' não declarado."
                 return self.errorListener.addError(err, ctx.start.line, ctx.start.column)
+            # verificar assinatura do procedimento
         return self.visitChildren(ctx)
     
     def visitExpressao(self, ctx: LangGrammar.ExpressaoContext):
@@ -213,10 +219,10 @@ class SemanticAna(LangGrammarVisitor):
                         # então se ela não está aqui, é porque não foi declarada, e isso já foi tratado
                         nome_variavel = fator.variavel().IDENTIFICADOR().getText()
                         symbol = self.current_scope.resolve(nome_variavel)
-                        assert symbol is not None
-                        tipo_variavel = symbol.type
-                        if tipo_variavel == 'int':
-                            tipos.append('int')
+                        if symbol is not None:
+                            tipo_variavel = symbol.type
+                            if tipo_variavel == 'int':
+                                tipos.append('int')
                     if fator.CONST_TRUE() is not None or fator.CONST_FALSE() is not None:
                         tipos.append('boolean')
                     if fator.expressao() is not None:
