@@ -40,7 +40,6 @@ class CodeGenerator(LangGrammarVisitor):
         self.generated_code.append("INPP\n")
         self.visitChildren(ctx)
         self.generated_code.append("PARA\n")
-        self.salvarPrograma()
 
     def visitListaIdentificadores(self, ctx: LangGrammar.ListaIdentificadoresContext):
         id = ctx.IDENTIFICADOR()
@@ -236,10 +235,8 @@ class CodeGenerator(LangGrammarVisitor):
         self.historico_variavel = []
         self.visitChildren(ctx)
 
-    def salvarPrograma(self):
-        #TODO
+    def salvarPrograma(self, filename):
         codigo_final = "".join(self.generated_code)
-        print(codigo_final)
-        f = open("mepa_code.mepa", "w")
+        f = open(filename, "w")
         f.write(codigo_final)
         f.close()

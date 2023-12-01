@@ -2,9 +2,10 @@ from antlr4 import *
 from tools.LangLexer import LangLexer
 from tools.LangGrammar import LangGrammar
 from tools.ErrorHandler import ErrorListener, CustomErrorStrategy
-from PyQt6.QtWidgets import QTableWidgetItem
+from PyQt6.QtWidgets import QTableWidgetItem, QFileDialog
 from .SemanticAna import SemanticAna
 from MEPA.CodeGenerator import CodeGenerator
+from datetime import datetime
 
 # temporário até ter custom
 from antlr4.error.ErrorListener import ErrorListener as ANTLRErrorListener
@@ -65,6 +66,17 @@ class Ana:
         errorListener = ErrorListener()
         codeGenerator = CodeGenerator(errorListener)
         codeGenerator.visit(tree)
-        # print errors
-        print(errorListener.getErrorsAsStr())
+        # pega hora atual
+        now = datetime.now()
+        now_str = now.strftime("%d-%m-%Y_%H-%M-%S")
+        filname = f"mepa_{now_str}.mepa"
+        # abre um filedialog com essa sugestão de nome
+        final_filename, _ = QFileDialog.getSaveFileName(None, "Salvar compilação", filname, "Arquivo MEPA (*.mepa)")
+        if final_filename == "":
+            return
+        # salva o arquivo
+        codeGenerator.salvarPrograma(final_filename)
+        
+        
+
 

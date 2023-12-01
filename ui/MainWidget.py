@@ -137,8 +137,7 @@ class MainWidget(QWidget):
         if found_proc:
             self.showProcedureError()
             return
-        #Ana.generate_code(self.lastValidTree)
-        print('bora gerar código')
+        Ana.generate_code(self.lastValidTree)
 
     def lex(self):
         # pega texto do editor
