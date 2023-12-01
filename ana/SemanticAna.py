@@ -123,7 +123,11 @@ class SemanticAna(LangGrammarVisitor):
         # caso contrário, é boolean
         tipo_expressao = self.encontrarTipoExpressao(ctx.expressao())
 
-        print('tipos:', tipo_variavel, tipo_expressao)
+        if tipo_expressao == 'mixed':
+            err = f"Expressão possui tipos incompatíveis."
+            return self.errorListener.addError(err, variavel.start.line, variavel.start.column)
+
+        #print('tipos:', tipo_variavel, tipo_expressao)
 
         if tipo_variavel != tipo_expressao:
             err = f"Variável '{nome_variavel}' é do tipo '{tipo_variavel}', mas a expressão é do tipo '{tipo_expressao}'."
@@ -165,17 +169,22 @@ class SemanticAna(LangGrammarVisitor):
     '''
 
     def encontrarTipoExpressao(self, expressao):
-        tipo = 'boolean'
+        tipos = []
         expressao_simples = expressao.expressaoSimples()
         while expressao_simples is not None:
+            # vê se a expressão simples tem sub ou sum (se tiver já coloca o tipo como int)
+            sub = expressao_simples.SUB()
+            sum = expressao_simples.SUM()
+            if sub is not None or sum is not None:
+                tipos.append('int')
             termo = expressao_simples.termo()
             while termo is not None:
                 fator = termo.fator()
                 # fator pode ser: variável, número, booleano ou expressão entre parênteses
                 if fator is not None:
                     if fator.numero() is not None:
-                        tipo = 'int'
-                    elif fator.variavel() is not None:
+                        tipos.append('int')
+                    if fator.variavel() is not None:
                         # tenta achar a variável: em pascal a declaração sempre vem antes da atribuição
                         # então se ela não está aqui, é porque não foi declarada, e isso já foi tratado
                         nome_variavel = fator.variavel().IDENTIFICADOR().getText()
@@ -183,11 +192,19 @@ class SemanticAna(LangGrammarVisitor):
                         assert symbol is not None
                         tipo_variavel = symbol.type
                         if tipo_variavel == 'int':
-                            tipo = 'int'
-                    elif fator.expressao() is not None:
-                        tipo = self.encontrarTipoExpressao(fator.expressao())
+                            tipos.append('int')
+                    if fator.CONST_TRUE() is not None or fator.CONST_FALSE() is not None:
+                        tipos.append('boolean')
+                    if fator.expressao() is not None:
+                        tipos.append(self.encontrarTipoExpressao(fator.expressao()))
                 termo = termo.termo1()
             expressao_simples = expressao_simples.expressaoSimples1()
+        tipo = 'int'
+        if ('boolean' in tipos and 'int' in tipos) or 'mixed' in tipos:
+            tipo = 'mixed'
+        elif 'boolean' in tipos:
+            tipo = 'boolean'
+        print('tipo final:', tipo)
         return tipo
 
 # TODO: consertar tipo expressão (fazer função recursiva de descobrir tipo de expressão)
